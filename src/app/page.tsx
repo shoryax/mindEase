@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '@/components/Header';
+import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import Stats from '@/components/Stats';
 import FeaturedCards from '@/components/FeaturedCards';
@@ -14,6 +15,7 @@ import './globals.css';
 const Page = () => {
   return (
     <div className="min-h-screen">
+      <Navigation />
       <Hero />
       <Stats />
       <FeaturedCards />

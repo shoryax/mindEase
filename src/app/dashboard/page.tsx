@@ -211,7 +211,7 @@ export default function MentalWellnessDashboard() {
           </div>
           <h2 className="text-4xl font-bold text-gray-500 mb-2">
             What would you like to
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-600 to-pink-600 bg-clip-text text-transparent">
               {" "}
               focus on{" "}
             </span>
