@@ -1,10 +1,8 @@
 "use client";
 import React from 'react';
 import { Quote } from 'lucide-react';
-import './hope.css';
-import '../../src/app/globals.css';
 
-const Testimonials = () => {
+export default function Testimonials() {
   const testimonials = [
     {
       quote: "These cards have become my daily companions. They remind me that it's okay to not be okay, and that healing is a journey.",
@@ -20,68 +18,66 @@ const Testimonials = () => {
       quote: "The breathing technique cards helped me through my most anxious moments. I keep them in my purse wherever I go.",
       author: "Maria L.",
       role: "Working Parent"
-    },
-    {
-      quote: "The breathing technique cards helped me through my most anxious moments. I keep them in my purse wherever I go.",
-      author: "Maria L.",
-      role: "Working Parent"
-    },
-    {
-      quote: "The breathing technique cards helped me through my most anxious moments. I keep them in my purse wherever I go.",
-      author: "Maria L.",
-      role: "Working Parent"
-    },
+    }
   ];
 
-  // Duplicate testimonials for a seamless loop
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
-
   return (
-    <section className="py-20 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <div className="inline-block mb-4">
-            <span className="text-sm font-semibold text-pink-600 dark:text-pink-400 bg-pink-100 dark:bg-pink-900/30 px-4 py-2 rounded-full">
-              TESTIMONIALS
-            </span>
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-100 mb-4">
+    <>
+    <section className="relative z-10 py-32 px-6 lg:px-12">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl lg:text-6xl font-light text-white mb-6">
             Stories of Hope
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-            Real experiences from people who have found comfort and strength through our resources
+          <p className="text-xl text-white/60 max-w-2xl mx-auto font-light">
+            Real experiences from people who have found comfort and strength
           </p>
         </div>
-
-        <div className="overflow-hidden">
-          <div className="animate-scroll p-1">
-            {duplicatedTestimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="group bg-white dark:bg-gray-800/80 backdrop-blur-sm border-2 border-pink-200/50 dark:border-pink-700/50 p-8 rounded-2xl shadow-md hover:shadow-2xl dark:hover:shadow-pink-500/10 transition-all duration-300 hover:-translate-y-1 mx-4 flex-shrink-0"
-                style={{ width: '350px' }}
-              >
-                <div className="bg-pink-100 dark:bg-pink-900/30 w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Quote className="h-6 w-6 text-pink-500 dark:text-pink-400" />
-                </div>
-                <p className="text-gray-700 dark:text-gray-300 mb-6 italic leading-relaxed text-sm">
-                  "{testimonial.quote}"
-                </p>
-                <div className="border-t-2 border-pink-200/30 dark:border-pink-700/30 pt-4">
-                  <p className="font-bold text-gray-800 dark:text-gray-100">
-                    {testimonial.author}
+        {/* Infinite horizontal scrolling testimonials */}
+        <div className="relative">
+          <div className="overflow-hidden py-2">
+            <div className="flex gap-6 animate-scroll-track">
+              {[...testimonials, ...testimonials].map((testimonial, index) => (
+                <div
+                  key={index}
+                  className="group relative p-8 rounded-3xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-sm border border-white/10 transition-all duration-500 hover:scale-105 hover:border-white/30 w-[320px] flex-shrink-0"
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <Quote className="h-6 w-6 text-white" />
+                  </div>
+                  <p className="text-white/80 mb-6 italic leading-relaxed">
+                    "{testimonial.quote}"
                   </p>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    {testimonial.role}
-                  </p>
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="font-medium text-white">
+                      {testimonial.author}
+                    </p>
+                    <p className="text-white/40 text-sm mt-1">
+                      {testimonial.role}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </section>
+    <style jsx>{`
+      @keyframes scrollTestimonial {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      /* The track contains two duplicated sets, so -50% completes one set */
+      .animate-scroll-track {
+        width: fit-content;
+        animation: scrollTestimonial 25s linear infinite;
+      }
+      /* Pause on hover for readability */
+      .animate-scroll-track:hover {
+        animation-play-state: paused;
+      }
+    `}</style>
+    </>
   );
-};
-
-export default Testimonials;
+}

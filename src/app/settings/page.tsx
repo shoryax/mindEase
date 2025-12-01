@@ -1,109 +1,20 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Bell, Shield, Palette, Heart, Globe, Database, Users, Phone } from 'lucide-react';
-import Link from 'next/link';
+
+import React, { useState } from 'react';
+import { ArrowLeft, Bell, Shield, Palette, Heart, Globe, Database, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import Header from '@/components/../components/Header';
-import TwinklingStars from './twinkle';
-import { supabase } from "@/lib/supabaseClient";
-import { useDarkMode } from '@/components/DarkModeProvider';
-import { useSettingsHandlers } from './handle';
 
-const Settings = () => {
+export default function Settings() {
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [dailyReminders, setDailyReminders] = useState(true);
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
-
-  const {
-    error,
-    setError,
-    submitting,
-    setSubmitting,
-    therapist_contact,
-    setTherapistContact,
-    emergency_contact,
-    setEmergencyContact,
-    user,
-    setUser,
-    loadUserSettings,
-  } = useSettingsHandlers();
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      setUser(data.user);
-
-      if (data.user) {
-        await loadUserSettings(data.user.id);
-      }
-    }
-    getUser();
-  }, []);
-
-  const handleSaveAllSettings = async () => {
-    setSubmitting(true);
-    setError(null);
-    if (!user) {
-      setError("User not loaded yet");
-      setSubmitting(false);
-      return;
-    }
-
-    try {
-      const { data: existingData } = await supabase
-        .from("userSettings")
-        .select("id")
-        .eq("user_id", user.id)
-        .single();
-
-      if (existingData) {
-        const { error: updateError } = await supabase
-          .from("userSettings")
-          .update({
-            emergency_contact: emergency_contact || null,
-            therapist_contact: therapist_contact || null,
-            updated_at: new Date().toISOString()
-          })
-          .eq("user_id", user.id);
-
-        if (updateError) {
-          throw updateError;
-        }
-      } else {
-        const { error: insertError } = await supabase
-          .from("userSettings")
-          .insert([
-            {
-              user_id: user.id,
-              emergency_contact: emergency_contact || null,
-              therapist_contact: therapist_contact || null,
-              updated_at: new Date().toISOString()
-            }
-          ]);
-
-        if (insertError) {
-          throw insertError;
-        }
-      }
-
-      console.log("All settings saved successfully");
-      setError(null);
-      if (user) {
-        await loadUserSettings(user.id);
-      }
-    } catch (err: any) {
-      console.error("Error saving settings:", err);
-      setError(err.message || "An unexpected error occurred");
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  const [emergencyContact, setEmergencyContact] = useState('');
+  const [therapistContact, setTherapistContact] = useState('');
 
   const settingsSections = [
     {
@@ -111,8 +22,9 @@ const Settings = () => {
       title: 'Appearance',
       icon: Palette,
       description: 'Theme & display preferences',
+      gradient: 'from-violet-500/20 to-purple-500/20',
       settings: [
-        { type: 'switch', label: 'Dark Mode', value: isDarkMode, onChange: () => toggleDarkMode() }
+        { type: 'switch', label: 'Dark Mode', value: isDarkMode, onChange: () => setIsDarkMode(!isDarkMode) }
       ]
     },
     {
@@ -120,9 +32,10 @@ const Settings = () => {
       title: 'Profile & Privacy',
       icon: Shield,
       description: 'Manage your profile visibility and privacy settings',
+      gradient: 'from-pink-500/20 to-rose-500/20',
       settings: [
         { type: 'switch', label: 'Allow Data Sharing for Research', value: true },
-        { type: 'input', label: 'Emergency Contact', placeholder: 'Enter phone number', value: emergency_contact, onChange: (e: any) => setEmergencyContact(e.target.value) }
+        { type: 'input', label: 'Emergency Contact', placeholder: 'Enter phone number', value: emergencyContact, onChange: (e) => setEmergencyContact(e.target.value) }
       ]
     },
     {
@@ -130,8 +43,9 @@ const Settings = () => {
       title: 'Notifications & Reminders',
       icon: Bell,
       description: 'Control when and how you receive notifications',
+      gradient: 'from-amber-500/20 to-orange-500/20',
       settings: [
-        { type: 'switch', label: 'Daily Check-in Reminders', value: dailyReminders, onChange: setDailyReminders },
+        { type: 'switch', label: 'Daily Check-in Reminders', value: dailyReminders, onChange: () => setDailyReminders(!dailyReminders) },
         { type: 'switch', label: 'Mood Tracking Notifications', value: true },
         { type: 'switch', label: 'Crisis Resource Alerts', value: true },
         { type: 'switch', label: 'Community Activity Updates', value: false },
@@ -143,9 +57,10 @@ const Settings = () => {
       title: 'Wellness Preferences',
       icon: Heart,
       description: 'Personalize your mental health journey',
+      gradient: 'from-cyan-500/20 to-blue-500/20',
       settings: [
         { type: 'select', label: 'Preferred Coping Strategies', options: ['breathing', 'meditation', 'journaling', 'exercise'] },
-        { type: 'input', label: 'Therapist Contact', placeholder: 'Enter therapist info', value: therapist_contact, onChange: (e: any) => setTherapistContact(e.target.value) },
+        { type: 'input', label: 'Therapist Contact', placeholder: 'Enter therapist info', value: therapistContact, onChange: (e) => setTherapistContact(e.target.value) },
         { type: 'switch', label: 'Therapy Session Reminders', value: false },
         { type: 'select', label: 'Crisis Support Level', options: ['minimal', 'moderate', 'intensive'] }
       ]
@@ -155,6 +70,7 @@ const Settings = () => {
       title: 'Language & Location',
       icon: Globe,
       description: 'Set your language and regional preferences',
+      gradient: 'from-emerald-500/20 to-teal-500/20',
       settings: [
         { type: 'select', label: 'Language', options: ['english', 'spanish', 'french', 'german', 'chinese'] },
         { type: 'select', label: 'Timezone', options: ['ET', 'PT', 'CT', 'JT'] },
@@ -167,6 +83,7 @@ const Settings = () => {
       title: 'Data & Security',
       icon: Database,
       description: 'Manage your data and account security',
+      gradient: 'from-indigo-500/20 to-blue-500/20',
       settings: [
         { type: 'switch', label: 'Two-Factor Authentication', value: false },
         { type: 'switch', label: 'Automatic Backup', value: true },
@@ -176,13 +93,12 @@ const Settings = () => {
     },
   ];
 
-  const renderSetting = (setting: any, index: number) => {
+  const renderSetting = (setting, index) => {
     switch (setting.type) {
       case 'switch':
         return (
-          <div key={index} className={`flex items-center justify-between py-2 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-            }`}>
-            <Label htmlFor={`setting-${index}`} className={`text-sm font-medium ${isDarkMode ? 'text-white/90' : 'text-gray-800'}`}>
+          <div key={index} className="flex items-center justify-between py-2">
+            <Label htmlFor={`setting-${index}`} className="text-sm font-light text-white/90">
               {setting.label}
             </Label>
             <Switch
@@ -195,14 +111,14 @@ const Settings = () => {
       case 'select':
         return (
           <div key={index} className="py-2">
-            <Label className={`text-sm font-medium mb-2 block ${isDarkMode ? 'text-white/90' : 'text-gray-800'}`}>{setting.label}</Label>
+            <Label className="text-sm font-light mb-2 block text-white/90">{setting.label}</Label>
             <Select defaultValue={setting.value || setting.options?.[0]}>
-              <SelectTrigger className={`${isDarkMode ? 'text-white/60' : 'text-gray-900'}`}>
+              <SelectTrigger className="bg-white/5 border-white/10 text-white/80">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white'}`}>
-                {setting.options?.map((option: string) => (
-                  <SelectItem key={option} value={option} className={`${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+              <SelectContent className="bg-gray-900 border-white/10">
+                {setting.options?.map((option) => (
+                  <SelectItem key={option} value={option} className="text-white/80 focus:bg-white/10">
                     {option.charAt(0).toUpperCase() + option.slice(1).replace('-', ' ')}
                   </SelectItem>
                 ))}
@@ -210,29 +126,13 @@ const Settings = () => {
             </Select>
           </div>
         );
-      case 'slider':
-        return (
-          <div key={index} className="py-4">
-            <Label className="text-sm font-medium mb-2 block text-gray-700">
-              {setting.label}: {setting.value[0]}px
-            </Label>
-            <Slider
-              value={setting.value}
-              onValueChange={setting.onChange}
-              min={setting.min}
-              max={setting.max}
-              step={1}
-              className="w-full bg-gray-200"
-            />
-          </div>
-        );
       case 'input':
         return (
           <div key={index} className="py-2">
-            <Label className={`text-sm font-medium mb-2 block ${isDarkMode ? 'text-white/70' : 'text-gray-800'}`}>{setting.label}</Label>
+            <Label className="text-sm font-light mb-2 block text-white/70">{setting.label}</Label>
             <Input
-              placeholder={setting.label}
-              className="text-gray-400"
+              placeholder={setting.placeholder}
+              className="bg-white/5 border-white/10 text-white/80 placeholder:text-white/40"
               value={setting.value}
               onChange={setting.onChange}
             />
@@ -243,8 +143,9 @@ const Settings = () => {
           <div key={index} className="py-2">
             <Button
               variant={setting.variant || 'outline'}
-              className={`w-full ${setting.variant === 'destructive' ? isDarkMode ? 'bg-red-800 hover:bg-red-700 text-white' : 'bg-red-600 hover:bg-red-700 text-white'
-                  : isDarkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-800'
+              className={`w-full font-light ${setting.variant === 'destructive'
+                  ? 'bg-red-500/20 hover:bg-red-500/30 text-red-400 border-red-500/30'
+                  : 'bg-white/5 hover:bg-white/10 text-white/80 border-white/10'
                 }`}
             >
               {setting.label}
@@ -255,47 +156,45 @@ const Settings = () => {
         return null;
     }
   };
-  return (
-    <div className=''>
-      {isDarkMode && <TwinklingStars />}
-      <div className='py-5'>
-        <Header />
-      </div>
-      <div className={`min-h-screen bg-gradient-to-br`}>
-        <div className={`fix shadow-sm sticky top-0 ${isDarkMode ? 'bg-inherit' : 'bg-[rgb(219,230,237)]'}`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center space-x-4">
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  return (
+    <div className="min-h-screen bg-[#0a0a0f] text-white overflow-hidden">
+      {/* Floating orbs background */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-purple-500/20 rounded-full blur-[100px] animate-pulse"></div>
+        <div className="absolute top-40 right-32 w-80 h-80 bg-blue-500/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-pink-500/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 right-20 w-64 h-64 bg-cyan-500/20 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+      </div>
+
+      <div className="relative z-10">
+        <div className="max-w-6xl mx-auto px-6 lg:px-8 py-10">
           <div className="space-y-8">
-            <div className="text-center">
-              <Link href="/" className={`flex items-center space-x-2 ${isDarkMode ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-black'} transition-colors`}>
-                <ArrowLeft className="h-5 w-5" />
-                <span>Back to Home</span>
-              </Link>
-              <h2 className={`text-3xl font-bold mb-2 ${isDarkMode ? 'text-gray-100' : 'text-gray-700'}`}>App Settings</h2>
-              <p className={`text-lg ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>Customize your mental health journey</p>
+            <a href="/dashboard" className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-6">
+              <ArrowLeft className="h-5 w-5" />
+              <span className="font-light">Back to Home</span>
+            </a>
+            <div className="text-center mb-12">
+              <h2 className="text-5xl lg:text-6xl font-light mb-4">App Settings</h2>
+              <p className="text-xl text-white/60 font-light">Customize your mental health journey</p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-2">
               {settingsSections.map((section) => {
                 const IconComponent = section.icon;
                 return (
-                  //nigga is the card here to modify
-                  <Card key={section.id} className={`h-fit ${isDarkMode ? 'bg-gray-900/50 nigga backdrop-blur-lg border-gray-700' : 'ng-white border-gray-300'}`}>
+                  <Card
+                    key={section.id}
+                    className={`bg-gradient-to-br ${section.gradient} backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all duration-300 rounded-3xl`}
+                  >
                     <CardHeader>
                       <div className="flex items-center space-x-3">
-                        <div className={`${isDarkMode ? 'bg-gray-700' : 'bg-blue-100'} p-2 rounded-lg`}>
-                          <IconComponent className={`h-5 w-5 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+                        <div className="bg-white/10 p-2 rounded-xl">
+                          <IconComponent className="h-5 w-5 text-white/80" />
                         </div>
                         <div>
-                          <CardTitle className={`text-lg ${isDarkMode ? 'text-gray-100' : 'text-gray-700'}`}>{section.title}</CardTitle>
-                          <CardDescription className={`text-sm ${isDarkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                          <CardTitle className="text-lg font-light text-white">{section.title}</CardTitle>
+                          <CardDescription className="text-sm font-light text-white/60">
                             {section.description}
                           </CardDescription>
                         </div>
@@ -307,7 +206,7 @@ const Settings = () => {
                           <div key={index}>
                             {renderSetting(setting, index)}
                             {index < section.settings.length - 1 && (
-                              <Separator className={`my-3 ${isDarkMode ? 'bg-gray-700' : ''}`} />
+                              <Separator className="my-3 bg-white/10" />
                             )}
                           </div>
                         ))}
@@ -318,15 +217,16 @@ const Settings = () => {
               })}
             </div>
 
-            <Card className={`${isDarkMode ? 'border-red-500/30 bg-red-900/30' : 'border-red-200 bg-red-50/50'}`}>
+            {/* Crisis Support Card */}
+            <Card className="bg-gradient-to-br from-red-500/20 to-orange-500/20 backdrop-blur-sm border border-red-500/30 rounded-3xl">
               <CardHeader>
                 <div className="flex items-center space-x-3">
-                  <div className={`${isDarkMode ? 'bg-red-800' : 'bg-red-100'} p-2 rounded-lg`}>
-                    <Phone className={`h-5 w-5 ${isDarkMode ? 'text-red-400' : 'text-red-600'}`} />
+                  <div className="bg-red-500/20 p-2 rounded-xl">
+                    <Phone className="h-5 w-5 text-red-400" />
                   </div>
                   <div>
-                    <CardTitle className={`text-lg ${isDarkMode ? 'text-red-300' : 'text-red-900'}`}>Crisis Support</CardTitle>
-                    <CardDescription className={`${isDarkMode ? 'text-red-400' : 'text-red-700'}`}>
+                    <CardTitle className="text-lg font-light text-red-300">Crisis Support</CardTitle>
+                    <CardDescription className="font-light text-red-400/80">
                       24/7 emergency resources and contacts
                     </CardDescription>
                   </div>
@@ -335,32 +235,27 @@ const Settings = () => {
               <CardContent>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Button variant="outline" className={`${isDarkMode ? 'border-red-600 text-red-400 hover:bg-red-800/40' : 'border-red-300 text-red-700 hover:bg-red-100'}`}>
+                    <Button variant="outline" className="border-red-500/30 text-red-400 hover:bg-red-500/20 font-light rounded-full">
                       Crisis Hotline: 988
                     </Button>
-                    <Button variant="outline" className={`${isDarkMode ? 'border-red-600 text-red-400 hover:bg-red-800/40' : 'border-red-300 text-red-700 hover:bg-red-100'}`}>
+                    <Button variant="outline" className="border-red-500/30 text-red-400 hover:bg-red-500/20 font-light rounded-full">
                       Text HOME to 741741
                     </Button>
                   </div>
-                  <p className={`text-sm ${isDarkMode ? 'text-red-400' : 'text-red-600'}`}>
+                  <p className="text-sm text-red-400/80 font-light">
                     If you're experiencing a mental health emergency, please contact emergency services immediately.
                   </p>
                 </div>
               </CardContent>
             </Card>
 
-            <div className="flex justify-center pt-6">
-              {error && (
-                <div className={`mb-4 p-3 rounded-md ${isDarkMode ? 'bg-red-900/50 border border-red-600 text-red-300' : 'bg-red-50 border border-red-200 text-red-700'}`}>
-                  {error}
-                </div>
-              )}
+            {/* Save Button */}
+            <div className="flex flex-col items-center gap-4 pt-6">
               <Button
                 size="lg"
-                onClick={handleSaveAllSettings}
-                className={`px-8 ${isDarkMode ? 'bg-pink-700 hover:bg-pink-600 text-white' : 'text-gray-700'}`}
-                disabled={submitting}>
-                {submitting ? 'Saving...' : 'Save All Settings'}
+                className="bg-gray-700 hover:bg-gray-600 text-white rounded-full px-12 h-14 text-base border-0 font-light"
+              >
+                Save All Settings
               </Button>
             </div>
           </div>
@@ -368,6 +263,4 @@ const Settings = () => {
       </div>
     </div>
   );
-};
-
-export default Settings;
+}

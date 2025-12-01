@@ -3,7 +3,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Menu, User, Sun, Moon, LayoutGrid } from 'lucide-react';
 import '../app/globals.css';
-import { supabase } from '../lib/supabaseClient';
+import { supabase } from '../lib/supabaseClient'; //to use handleSignIn cause it's not in Usercontext
 import { useUser } from '../contexts/UserContext';
 import Link from 'next/link';
 import { useDarkMode } from './DarkModeProvider';
@@ -25,7 +25,12 @@ const Header = () => {
   }, []);
 
   const handleSignIn = async () => {
-    await supabase.auth.signInWithOAuth({ provider: 'google' });
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/dashboard`,
+      },
+    });
   };
 
   const handleSignOut = async () => {
@@ -48,10 +53,10 @@ const Header = () => {
             </span>
           </div>
           <nav className="hidden md:flex space-x-7 items-center">
-            <a href="/" className={`hover:text-pink-600 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
+            {/* <a href="/" className={`hover:text-pink-600 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
               Home
-            </a>
+            </a> */}
             <a href="#about" className={`hover:text-pink-600 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
               }`}>
               About

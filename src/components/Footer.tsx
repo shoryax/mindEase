@@ -3,8 +3,8 @@ import { Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <div className='w-[97%] flex justify-center mx-auto'>
-      <footer id="contact" className="bg-[#1e1d22] flex w-[100%] items-center justify-center rounded-t-[15px] text-white py-16">
+    <div className='w-[97%] flex justify-center mx-auto "bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-t-[15px] font-light text-white transition-all duration-300'>
+      <footer id="contact" className="bg-[#0d091e] flex w-[100%] items-center justify-center rounded-t-[15px] text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="grid md:grid-cols-4 gap-8">

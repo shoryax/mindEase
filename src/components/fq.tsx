@@ -1,18 +1,10 @@
 "use client";
+import React, { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
-import React from "react";
-import { ChevronDown } from "lucide-react";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import TwinklingStars from '@/app/settings/twinkle';
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+export default function FAQ() {
+  const [openIndex, setOpenIndex] = useState(null);
 
-
-const FAQ = () => {
-  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation<HTMLDivElement>();
   const faqs = [
     {
       question: "How do mental health cards work?",
@@ -47,46 +39,56 @@ const FAQ = () => {
   ];
 
   return (
-    <div
-      ref={sectionRef}
-      className={`bg py-12 transition-all duration-500 ease-out ${sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}
-    >
-      <div className="max-w-4xl mx-auto w-[55%] px-4 sm:px-6 lg:px-8">
-        <TwinklingStars />
-        <div className="mb-16 mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-600 mb-4">
+    <section className="relative z-10 py-22 px-6 lg:px-12">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-5xl lg:text-6xl font-light text-white mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl">
+          <p className="text-xl text-white/60 font-light">
             Find answers to common questions about our mental health resources
           </p>
         </div>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <Collapsible key={index} className="bg-white/70 rounded-lg">
-              <CollapsibleTrigger className="flex justify-between items-center w-full p-6 text-left hover:bg-white/70 transition-colors rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-700 pr-4">
+            <div
+              key={index}
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-all duration-300"
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="flex justify-between items-center w-full p-6 text-left"
+              >
+                <h3 className="text-lg font-light text-white pr-4">
                   {faq.question}
                 </h3>
-                <ChevronDown className="h-5 w-5 text-gray-500 transform transition-transform duration-200 data-[state=open]:rotate-180" />
-              </CollapsibleTrigger>
-              <CollapsibleContent className="px-6 pb-6">
-                <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
-              </CollapsibleContent>
-            </Collapsible>
+                <ChevronDown
+                  className={`h-5 w-5 text-white/60 transition-transform duration-300 flex-shrink-0 ${
+                    openIndex === index ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              {openIndex === index && (
+                <div className="px-6 pb-6 border-t border-white/10 pt-4">
+                  <p className="text-white/70 leading-relaxed font-light">
+                    {faq.answer}
+                  </p>
+                </div>
+              )}
+            </div>
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-gray-500 mb-4">Still have questions? We're here to help.</p>
-          <button className=" text-gray-500/90 border border-spacing-3 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400 transition-colors">
+        <div className="text-center mt-16">
+          <p className="text-white/60 mb-6 font-light">
+            Still have questions? We're here to help.
+          </p>
+          <button className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 px-8 py-3 rounded-full font-light text-white transition-all duration-300">
             Contact Support
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default FAQ;
+}
