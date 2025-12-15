@@ -52,7 +52,7 @@ const InteractiveBackground = () => {
         ref={orb1Ref}
         className="absolute w-[500px] h-[500px] rounded-full opacity-40 blur-3xl pointer-events-none will-change-transform"
         style={{
-          background: `radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%)`,
+          background: `radial-gradient(circle, hsl(var(--primary)) 0%, transparent 35%)`,
         }}
       />
 
