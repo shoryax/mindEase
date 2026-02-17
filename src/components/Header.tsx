@@ -1,18 +1,19 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { Menu, User, Sun, Moon, LayoutGrid } from 'lucide-react';
-import '../app/globals.css';
-import { supabase } from '../lib/supabaseClient'; //to use handleSignIn cause it's not in Usercontext
+import { useRouter } from 'next/navigation';
+import { User, Sun, Moon, Settings, LogOut } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
 import { useUser } from '../contexts/UserContext';
 import Link from 'next/link';
 import { useDarkMode } from './DarkModeProvider';
 
-const Header = () => {
-  const { user, profileUrl, displayName, signOut: contextSignOut } = useUser();
+export default function Header() {
+  const { user, loading, profileUrl, displayName, signOut: contextSignOut } = useUser();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const router = useRouter();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -25,157 +26,107 @@ const Header = () => {
   }, []);
 
   const handleSignIn = async () => {
-    await supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: `${window.location.origin}/dashboard`,
       },
     });
+
+    if (error) {
+      console.error('Sign in error:', error.message);
+      router.push('/signin');
+    }
+    // If successful, Supabase redirects to data.url automatically
   };
 
   const handleSignOut = async () => {
     await contextSignOut();
     setDropdownOpen(false);
+    router.push('/');
   };
 
   return (
-    <header className={`fixed top-0 left-1/2 -translate-x-1/2 w-3/4 mt-8 mb-16 backdrop-blur-lg rounded-2xl z-50 transition-colors duration-300 ${isDarkMode
-      ? 'bg-gray-900/20 text-white'
-      : 'bg-white/5 text-gray-700'
-      }`}>
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center space-x-2">
-            <img src="/healthBroken.svg" alt="Google logo" className="w-10 h-10" />
-            <span className={`text-xl font-semibold transition-colors duration-300 ${isDarkMode ? 'text-white' : 'text-gray-700'
-              }`}>
+    <header className="fixed top-0 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl mt-4 backdrop-blur-xl rounded-2xl z-50 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10">
+      <div className="px-6">
+        <div className="flex justify-between items-center h-14">
+          <Link href="/" className="flex items-center space-x-2">
+            <img src="/healthBroken.svg" alt="Logo" className="w-7 h-7" />
+            <span className="text-foreground font-medium text-sm hidden sm:inline">
               Cards for Mental Health
             </span>
-          </div>
-          <nav className="hidden md:flex space-x-7 items-center">
-            {/* <a href="/" className={`hover:text-pink-600 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-              Home
-            </a> */}
-            <a href="#about" className={`hover:text-pink-600 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-              }`}>
-              About
-            </a>
-            {user ? (
-              <Link href="/dashboard" className={`hover:text-pink-600 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>
+          </Link>
+
+          <nav className="flex items-center gap-1">
+            {user && (
+              <Link
+                href="/dashboard"
+                className="text-sm text-muted-foreground hover:text-foreground px-3 py-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors hidden sm:block"
+              >
                 Dashboard
               </Link>
-            ) : (
-              <a href="#contact" className={`hover:text-pink-600 transition-colors duration-300 ${isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}>
-                Contact
-              </a>
             )}
 
-            {/* Dark mode toggle */}
             <button
               onClick={toggleDarkMode}
-              className={`p-2 rounded-lg transition-all duration-300 hover:bg-opacity-20 ${isDarkMode
-                ? 'hover:bg-white/20 text-yellow-400'
-                : 'hover:bg-gray-200 text-gray-700'
-                }`}
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition-all"
               aria-label="Toggle dark mode"
             >
-              {isDarkMode ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
+              {isDarkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </button>
 
-            {user ? (
-              <div className="relative" ref={dropdownRef}>
-                <button
-                  onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className={`flex items-center rounded-lg space-x-2 px-2 py-1.5 hover:bg-opacity-20 transition-colors duration-300 ${isDarkMode ? 'hover:bg-white/20 bg-[#2f2835]' : 'hover:bg-gray-200 bg-[#dedede]'
-                    }`}
-                >
-                  {profileUrl ? (
-                    <img
-                      src={profileUrl}
-                      alt="Profile"
-                      className="w-6 h-6 rounded-full object-cover ring-1 ring-pink-400"
-                    />
-                  ) : (
-                    <User className={`h-6 w-6 ${isDarkMode ? 'text-pink-300' : 'text-pink-100'}`} />
+            {!loading && (
+              user ? (
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                  >
+                    {profileUrl ? (
+                      <img
+                        src={profileUrl}
+                        alt="Profile"
+                        className="w-6 h-6 rounded-full object-cover ring-1 ring-border"
+                      />
+                    ) : (
+                      <User className="h-5 w-5 text-muted-foreground" />
+                    )}
+                    <span className="text-sm text-foreground hidden sm:inline">{displayName}</span>
+                  </button>
+
+                  {dropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-44 backdrop-blur-xl bg-background/95 border border-border rounded-xl overflow-hidden shadow-2xl">
+                      <Link
+                        href="/settings"
+                        className="flex items-center gap-2 px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        <Settings className="w-4 h-4" />
+                        Settings
+                      </Link>
+                      <button
+                        onClick={handleSignOut}
+                        className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </button>
+                    </div>
                   )}
-                  <span className={`text-sm px-2 py-1 transition-colors duration-300 ${isDarkMode
-                    ? 'text-white '
-                    : 'text-[#000000]'
-                    }`}>
-                    {displayName}
-                  </span>
+                </div>
+              ) : (
+                <button
+                  onClick={handleSignIn}
+                  className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 px-4 py-1.5 rounded-full border border-border transition-all"
+                >
+                  <User className="h-4 w-4" />
+                  Sign In
                 </button>
-
-                {dropdownOpen && (
-                  <div className={`absolute right-0 mt-2 w-40 backdrop-blur-md border z-50 rounded-lg transition-colors duration-300 ${isDarkMode
-                    ? 'bg-gray-800/20 border-gray-600/50'
-                    : 'bg-pink-100/20 border-pink-200/50'
-                    }`}>
-                    <Link
-                      href="/settings"
-                      className={`block px-4 py-2 text-sm transition-colors duration-300 ${isDarkMode
-                        ? 'text-gray-300 hover:bg-gray-700/50'
-                        : 'text-gray-700 hover:bg-pink-200/50'
-                        }`}
-                      onClick={() => setDropdownOpen(false)}
-                    >
-                      <img src="/settings.svg" alt="Settings" className="inline-block w-5 h-5 mr-2" />
-                      Settings
-                    </Link>
-
-                    <button
-                      onClick={handleSignOut}
-                      className={`w-full text-left px-4 py-2 text-sm transition-colors duration-300 ${isDarkMode
-                        ? 'text-gray-300 hover:bg-gray-700/50'
-                        : 'text-gray-700 hover:bg-pink-200/50'
-                        }`}
-                    >
-                      <img src="exit.svg" alt="Sign Out" className="inline-block w-5 h-5 mr-2" />
-                      Sign Out
-                    </button>
-
-                    <Link
-                      href="/cards"
-                      className={`block px-4 py-2 text-sm transition-colors duration-300 ${isDarkMode
-                        ? 'text-gray-300 hover:bg-gray-700/50'
-                        : 'text-gray-700 hover:bg-pink-200/50'
-                        }`}
-                      onClick={() => setDropdownOpen(false)}
-                    >
-                      <LayoutGrid className="inline-block w-5 h-5 mr-2 align-text-bottom" />
-                      Cards
-                    </Link>
-                  </div>
-                )}
-
-              </div>
-            ) : (
-              <button
-                onClick={handleSignIn}
-                className={`flex items-center space-x-2 transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-pink-400' : 'text-gray-700 hover:text-pink-600'
-                  }`}
-              >
-                <User className={`h-6 w-6 ${isDarkMode ? 'text-pink-400' : 'text-pink-500'}`} />
-                <span>Sign In</span>
-              </button>
+              )
             )}
           </nav>
-
-          <button className={`md:hidden p-2 rounded-md transition-colors duration-300 ${isDarkMode ? 'text-gray-300 hover:text-pink-400' : 'text-gray-700 hover:text-pink-600'
-            }`}>
-            <Menu className="h-6 w-6" />
-          </button>
         </div>
       </div>
     </header>
   );
-};
-
-export default Header;
+}

@@ -1,83 +1,74 @@
 "use client";
-import React from 'react';
 import { Quote } from 'lucide-react';
 
-export default function Testimonials() {
-  const testimonials = [
-    {
-      quote: "These cards have become my daily companions. They remind me that it's okay to not be okay, and that healing is a journey.",
-      author: "Sarah M.",
-      role: "College Student"
-    },
-    {
-      quote: "As a therapist, I recommend these cards to many of my clients. They're beautifully designed and genuinely helpful.",
-      author: "Dr. James Wilson",
-      role: "Licensed Therapist"
-    },
-    {
-      quote: "The breathing technique cards helped me through my most anxious moments. I keep them in my purse wherever I go.",
-      author: "Maria L.",
-      role: "Working Parent"
-    }
-  ];
+const testimonials = [
+  {
+    quote: "These cards have become my daily companions. They remind me that it's okay to not be okay, and that healing is a journey.",
+    author: "Sarah M.",
+    role: "College Student"
+  },
+  {
+    quote: "As a therapist, I recommend these cards to many of my clients. They're beautifully designed and genuinely helpful.",
+    author: "Dr. James Wilson",
+    role: "Licensed Therapist"
+  },
+  {
+    quote: "The breathing technique cards helped me through my most anxious moments. I keep them in my purse wherever I go.",
+    author: "Maria L.",
+    role: "Working Parent"
+  }
+];
 
+export default function Testimonials() {
   return (
     <>
-    <section className="relative z-10 py-32 px-6 lg:px-12">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-20">
-          <h2 className="text-5xl lg:text-6xl font-light text-white mb-6">
-            Stories of Hope
-          </h2>
-          <p className="text-xl text-white/60 max-w-2xl mx-auto font-light">
-            Real experiences from people who have found comfort and strength
-          </p>
-        </div>
-        {/* Infinite horizontal scrolling testimonials */}
-        <div className="relative">
-          <div className="overflow-hidden py-2">
+      <section className="relative z-10 py-32 px-6 lg:px-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl lg:text-6xl font-light text-foreground mb-4">
+              Stories of Hope
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-light">
+              Real experiences from people who have found comfort and strength
+            </p>
+          </div>
+
+          <div className="relative overflow-hidden py-2">
             <div className="flex gap-6 animate-scroll-track">
               {[...testimonials, ...testimonials].map((testimonial, index) => (
                 <div
                   key={index}
-                  className="group relative p-8 rounded-3xl bg-gradient-to-br from-purple-500/10 to-pink-500/10 backdrop-blur-sm border border-white/10 transition-all duration-500 hover:scale-105 hover:border-white/30 w-[320px] flex-shrink-0"
+                  className="group p-7 rounded-2xl bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-black/10 dark:border-white/10 hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 w-[320px] flex-shrink-0"
                 >
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <Quote className="h-6 w-6 text-white" />
+                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-xl flex items-center justify-center mb-5 border border-black/10 dark:border-white/10">
+                    <Quote className="h-4 w-4 text-muted-foreground" />
                   </div>
-                  <p className="text-white/80 mb-6 italic leading-relaxed">
+                  <p className="text-muted-foreground mb-5 italic leading-relaxed text-sm">
                     "{testimonial.quote}"
                   </p>
-                  <div className="border-t border-white/10 pt-4">
-                    <p className="font-medium text-white">
-                      {testimonial.author}
-                    </p>
-                    <p className="text-white/40 text-sm mt-1">
-                      {testimonial.role}
-                    </p>
+                  <div className="border-t border-black/10 dark:border-white/10 pt-4">
+                    <p className="font-medium text-foreground text-sm">{testimonial.author}</p>
+                    <p className="text-muted-foreground text-xs mt-0.5">{testimonial.role}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    <style jsx>{`
-      @keyframes scrollTestimonial {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-      /* The track contains two duplicated sets, so -50% completes one set */
-      .animate-scroll-track {
-        width: fit-content;
-        animation: scrollTestimonial 25s linear infinite;
-      }
-      /* Pause on hover for readability */
-      .animate-scroll-track:hover {
-        animation-play-state: paused;
-      }
-    `}</style>
+      </section>
+      <style jsx>{`
+        @keyframes scrollTestimonial {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-scroll-track {
+          width: fit-content;
+          animation: scrollTestimonial 25s linear infinite;
+        }
+        .animate-scroll-track:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </>
   );
 }
