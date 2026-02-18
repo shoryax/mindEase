@@ -63,7 +63,7 @@ export default function Stats() {
         <div className="mb-12 lg:mb-16">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-px w-12 bg-gradient-to-r from-teal-500 to-transparent" />
-            <span className="text-xs font-medium uppercase tracking-widest text-teal-600 dark:text-teal-400">By the numbers</span>
+            <span className="text-xs font-medium uppercase tracking-widest text-teal-600 dark:text-teal-300">By the numbers</span>
           </div>
           <h2 className="text-2xl lg:text-3xl font-medium text-foreground">Real impact, real results</h2>
         </div>
@@ -73,7 +73,7 @@ export default function Stats() {
           {stats.map((stat, i) => (
             <div 
               key={i} 
-              className="group relative p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-white/80 to-white/40 dark:from-white/5 dark:to-white/[0.02] border border-black/[0.06] dark:border-white/[0.08] hover:border-teal-500/30 dark:hover:border-teal-400/30 transition-all duration-500 hover:shadow-lg hover:shadow-teal-500/5"
+              className="group relative p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-white/80 to-white/40 dark:from-white/10 dark:to-white/5 border border-black/[0.06] dark:border-white/[0.12] hover:border-teal-500/30 dark:hover:border-teal-300/30 transition-all duration-500 hover:shadow-lg hover:shadow-teal-500/5"
             >
               {/* Decorative corner */}
               <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-gradient-to-br from-teal-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />

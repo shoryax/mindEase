@@ -43,12 +43,12 @@ const services = [
 ];
 
 const colorVariants: Record<string, { bg: string; border: string; icon: string; hover: string }> = {
-  teal: { bg: 'bg-teal-50 dark:bg-teal-950/30', border: 'border-teal-200/50 dark:border-teal-800/50', icon: 'text-teal-600 dark:text-teal-400', hover: 'hover:border-teal-300 dark:hover:border-teal-700' },
-  rose: { bg: 'bg-rose-50 dark:bg-rose-950/30', border: 'border-rose-200/50 dark:border-rose-800/50', icon: 'text-rose-600 dark:text-rose-400', hover: 'hover:border-rose-300 dark:hover:border-rose-700' },
-  emerald: { bg: 'bg-emerald-50 dark:bg-emerald-950/30', border: 'border-emerald-200/50 dark:border-emerald-800/50', icon: 'text-emerald-600 dark:text-emerald-400', hover: 'hover:border-emerald-300 dark:hover:border-emerald-700' },
-  sky: { bg: 'bg-sky-50 dark:bg-sky-950/30', border: 'border-sky-200/50 dark:border-sky-800/50', icon: 'text-sky-600 dark:text-sky-400', hover: 'hover:border-sky-300 dark:hover:border-sky-700' },
-  amber: { bg: 'bg-amber-50 dark:bg-amber-950/30', border: 'border-amber-200/50 dark:border-amber-800/50', icon: 'text-amber-600 dark:text-amber-400', hover: 'hover:border-amber-300 dark:hover:border-amber-700' },
-  violet: { bg: 'bg-violet-50 dark:bg-violet-950/30', border: 'border-violet-200/50 dark:border-violet-800/50', icon: 'text-violet-600 dark:text-violet-400', hover: 'hover:border-violet-300 dark:hover:border-violet-700' }
+  teal: { bg: 'bg-teal-50 dark:bg-teal-900/40', border: 'border-teal-200/50 dark:border-teal-700/50', icon: 'text-teal-600 dark:text-teal-300', hover: 'hover:border-teal-300 dark:hover:border-teal-600' },
+  rose: { bg: 'bg-rose-50 dark:bg-rose-900/40', border: 'border-rose-200/50 dark:border-rose-700/50', icon: 'text-rose-600 dark:text-rose-300', hover: 'hover:border-rose-300 dark:hover:border-rose-600' },
+  emerald: { bg: 'bg-emerald-50 dark:bg-emerald-900/40', border: 'border-emerald-200/50 dark:border-emerald-700/50', icon: 'text-emerald-600 dark:text-emerald-300', hover: 'hover:border-emerald-300 dark:hover:border-emerald-600' },
+  sky: { bg: 'bg-sky-50 dark:bg-sky-900/40', border: 'border-sky-200/50 dark:border-sky-700/50', icon: 'text-sky-600 dark:text-sky-300', hover: 'hover:border-sky-300 dark:hover:border-sky-600' },
+  amber: { bg: 'bg-amber-50 dark:bg-amber-900/40', border: 'border-amber-200/50 dark:border-amber-700/50', icon: 'text-amber-600 dark:text-amber-300', hover: 'hover:border-amber-300 dark:hover:border-amber-600' },
+  violet: { bg: 'bg-violet-50 dark:bg-violet-900/40', border: 'border-violet-200/50 dark:border-violet-700/50', icon: 'text-violet-600 dark:text-violet-300', hover: 'hover:border-violet-300 dark:hover:border-violet-600' }
 };
 
 export default function FeaturedCards() {
@@ -67,7 +67,7 @@ export default function FeaturedCards() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-12 bg-gradient-to-r from-teal-500 to-transparent" />
-              <span className="text-xs font-medium uppercase tracking-widest text-teal-600 dark:text-teal-400">Our services</span>
+              <span className="text-xs font-medium uppercase tracking-widest text-teal-600 dark:text-teal-300">Our services</span>
             </div>
             <h2 className="text-3xl lg:text-5xl font-semibold text-foreground tracking-tight">
               Therapy designed

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from 'react';
-import { ArrowLeft, Bell, Shield, Palette, Heart, Globe, Database, Phone } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowLeft, Bell, Shield, Palette, Heart, Globe, Database, Phone, Check, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
@@ -10,6 +10,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { useDarkMode } from '@/components/DarkModeProvider';
+import { useUser } from '@/contexts/UserContext';
+import { supabase } from '@/lib/supabaseClient';
 
 interface SettingItem {
   type: 'switch' | 'select' | 'input' | 'button';
@@ -33,9 +35,41 @@ interface SettingsSection {
 
 export default function Settings() {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { user } = useUser();
   const [dailyReminders, setDailyReminders] = useState(true);
   const [emergencyContact, setEmergencyContact] = useState('');
   const [therapistContact, setTherapistContact] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    if (user?.user_metadata) {
+      const meta = user.user_metadata;
+      if (meta.emergency_contact) setEmergencyContact(meta.emergency_contact);
+      if (meta.therapist_contact) setTherapistContact(meta.therapist_contact);
+    }
+  }, [user]);
+
+  const handleSave = async () => {
+    if (!user) return;
+    setSaving(true);
+    setSaved(false);
+
+    const { error } = await supabase.auth.updateUser({
+      data: {
+        emergency_contact: emergencyContact,
+        therapist_contact: therapistContact,
+      },
+    });
+
+    setSaving(false);
+    if (!error) {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } else {
+      console.error('Failed to save contacts:', error.message);
+    }
+  };
 
   const settingsSections: SettingsSection[] = [
     {
@@ -43,7 +77,7 @@ export default function Settings() {
       title: 'Appearance',
       icon: Palette,
       description: 'Theme & display preferences',
-      gradient: 'from-violet-500/10 to-purple-500/10 dark:from-violet-500/20 dark:to-purple-500/20',
+      gradient: 'from-emerald-500/10 to-teal-500/10 dark:from-emerald-500/20 dark:to-teal-500/20',
       settings: [
         { type: 'switch', label: 'Dark Mode', value: isDarkMode, onChange: toggleDarkMode }
       ]
@@ -56,7 +90,13 @@ export default function Settings() {
       gradient: 'from-pink-500/10 to-rose-500/10 dark:from-pink-500/20 dark:to-rose-500/20',
       settings: [
         { type: 'switch', label: 'Allow Data Sharing for Research', value: true },
-        { type: 'input', label: 'Emergency Contact', placeholder: 'Enter phone number', value: emergencyContact, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmergencyContact(e.target.value) }
+        {
+          type: 'input',
+          label: 'Emergency Contact',
+          placeholder: 'Enter phone number',
+          value: emergencyContact,
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => setEmergencyContact(e.target.value),
+        }
       ]
     },
     {
@@ -79,7 +119,13 @@ export default function Settings() {
       gradient: 'from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/20 dark:to-blue-500/20',
       settings: [
         { type: 'select', label: 'Preferred Coping Strategies', options: ['breathing', 'meditation', 'journaling', 'exercise'] },
-        { type: 'input', label: 'Therapist Contact', placeholder: 'Enter therapist info', value: therapistContact, onChange: (e: React.ChangeEvent<HTMLInputElement>) => setTherapistContact(e.target.value) },
+        {
+          type: 'input',
+          label: 'Therapist Contact',
+          placeholder: 'Enter therapist name or phone',
+          value: therapistContact,
+          onChange: (e: React.ChangeEvent<HTMLInputElement>) => setTherapistContact(e.target.value),
+        },
       ]
     },
     {
@@ -258,9 +304,23 @@ export default function Settings() {
             <div className="flex justify-center pt-4 pb-8">
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full px-10 h-12 text-sm border-0 font-light"
+                onClick={handleSave}
+                disabled={saving}
+                className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full px-10 h-12 text-sm border-0 font-light disabled:opacity-60"
               >
-                Save Settings
+                {saving ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Saving...
+                  </>
+                ) : saved ? (
+                  <>
+                    <Check className="w-4 h-4 mr-2" />
+                    Saved
+                  </>
+                ) : (
+                  'Save Settings'
+                )}
               </Button>
             </div>
           </div>

@@ -93,6 +93,15 @@ export default function Header() {
               <Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground px-4 py-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all font-medium">
                 Dashboard
               </Link>
+              <Link href="/cbt" className="text-sm text-muted-foreground hover:text-foreground px-4 py-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all font-medium">
+                CBT Coach
+              </Link>
+              <Link href="/sounds" className="text-sm text-muted-foreground hover:text-foreground px-4 py-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all font-medium">
+                Sounds
+              </Link>
+              <Link href="/digest" className="text-sm text-muted-foreground hover:text-foreground px-4 py-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-all font-medium">
+                Digest
+              </Link>
             </nav>
           )}
 

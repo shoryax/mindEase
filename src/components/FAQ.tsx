@@ -47,7 +47,7 @@ export default function FAQ() {
             <div className="lg:sticky lg:top-32">
               <div className="flex items-center gap-3 mb-4">
                 <div className="h-px w-12 bg-gradient-to-r from-teal-500 to-transparent" />
-                <span className="text-xs font-medium uppercase tracking-widest text-teal-600 dark:text-teal-400">FAQ</span>
+                <span className="text-xs font-medium uppercase tracking-widest text-teal-600 dark:text-teal-300">FAQ</span>
               </div>
               <h2 className="text-3xl lg:text-4xl font-semibold text-foreground tracking-tight mb-6">
                 Questions?
@@ -59,7 +59,7 @@ export default function FAQ() {
               </p>
               <a 
                 href="#contact" 
-                className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors group"
+                className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 dark:text-teal-300 hover:text-teal-700 dark:hover:text-teal-200 transition-colors group"
               >
                 Contact us
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
@@ -77,8 +77,8 @@ export default function FAQ() {
                     key={index}
                     className={`group rounded-2xl border transition-all duration-300 overflow-hidden
                       ${isOpen 
-                        ? 'bg-white dark:bg-slate-900 border-teal-200 dark:border-teal-800 shadow-lg shadow-teal-500/5' 
-                        : 'bg-white/50 dark:bg-white/[0.02] border-border/50 hover:border-border'}
+                        ? 'bg-white dark:bg-white/[0.06] border-teal-200 dark:border-teal-600/50 shadow-lg shadow-teal-500/5'
+                        : 'bg-white/50 dark:bg-white/[0.03] border-border/50 hover:border-border'}
                     `}
                   >
                     <button
@@ -87,7 +87,7 @@ export default function FAQ() {
                     >
                       <div className="flex-1">
                         <span className={`text-[10px] font-semibold uppercase tracking-widest mb-2 block transition-colors
-                          ${isOpen ? 'text-teal-600 dark:text-teal-400' : 'text-muted-foreground/60'}`}>
+                          ${isOpen ? 'text-teal-600 dark:text-teal-300' : 'text-muted-foreground/60'}`}>
                           {faq.category}
                         </span>
                         <h3 className="text-base font-medium text-foreground leading-relaxed">

@@ -28,7 +28,7 @@ export default function Hero() {
             <h1 className="text-[2.75rem] sm:text-6xl lg:text-[5.5rem] font-semibold leading-[1.05] mb-6 tracking-tight text-foreground">
               Your mind
               <br />
-              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-emerald-500 to-teal-500 dark:from-teal-400 dark:via-emerald-400 dark:to-teal-300">
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-teal-600 via-emerald-500 to-teal-500 dark:from-teal-300 dark:via-emerald-300 dark:to-teal-200">
                 deserves care
               </span>
             </h1>
@@ -71,7 +71,7 @@ export default function Hero() {
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-square max-w-md mx-auto lg:max-w-none">
               {/* Main card */}
-              <div className="absolute inset-4 sm:inset-8 rounded-3xl bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-950/50 dark:to-emerald-950/50 border border-teal-200/50 dark:border-teal-700/30 shadow-2xl shadow-teal-500/10 overflow-hidden">
+              <div className="absolute inset-4 sm:inset-8 rounded-3xl bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-900/60 dark:to-emerald-900/60 border border-teal-200/50 dark:border-teal-600/40 shadow-2xl shadow-teal-500/10 overflow-hidden">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(20,184,166,0.12),transparent_50%)]" />
                 <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-white/80 dark:from-black/50 to-transparent" />
                 

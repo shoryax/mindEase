@@ -41,7 +41,7 @@ export default function InteractiveBackground() {
         ref={orb1Ref}
         className="absolute w-[500px] h-[500px] rounded-full opacity-15 dark:opacity-25 blur-[120px] pointer-events-none will-change-transform"
         style={{
-          background: 'radial-gradient(circle, #8b5cf6 0%, transparent 70%)',
+          background: 'radial-gradient(circle, #10b981 0%, transparent 70%)',
         }}
       />
 
@@ -49,7 +49,7 @@ export default function InteractiveBackground() {
         ref={orb2Ref}
         className="absolute w-[400px] h-[400px] rounded-full opacity-10 dark:opacity-20 blur-[120px] pointer-events-none will-change-transform"
         style={{
-          background: 'radial-gradient(circle, #ec4899 0%, transparent 70%)',
+          background: 'radial-gradient(circle, #14b8a6 0%, transparent 70%)',
         }}
       />
     </div>

@@ -9,7 +9,11 @@ import ActivityCard, { type Activity } from "./ActivityCard";
 import QuickActions from "./QuickActions";
 import SearchBar from "./SearchBar";
 import StatsCards from "./StatsCards";
-import { activities as rawActivities, dailyGoal } from "../../../data/data";
+import HealthChatbot from "../../components/HealthChatbot";
+import BreathingPacer from "../../components/BreathingPacer";
+import MoodGarden from "../../components/MoodGarden";
+import CommunityPulse from "../../components/CommunityPulse";
+import { activities as rawActivities, dailyGoal, quotes } from "../../../data/data";
 
 const activities: Activity[] = rawActivities.map((a: any) => ({
   ...a,
@@ -32,6 +36,7 @@ export default function MentalWellnessDashboard() {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [doneToday, setDoneToday] = useState(0);
   const [weeklyCompleted, setWeeklyCompleted] = useState(0);
+  const [showBreathing, setShowBreathing] = useState(false);
 
   const incrementCount = useCallback(async (activity: Activity) => {
     if (!user) return;
@@ -131,12 +136,13 @@ export default function MentalWellnessDashboard() {
   }, [favorites, user]);
 
   const { greeting, icon: GreetingIcon, message } = getTimeBasedGreeting();
+  const [quote] = useState(() => quotes[Math.floor(Math.random() * quotes.length)]);
 
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-8 h-8 border-2 border-green-300 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-muted-foreground">Loading your space...</p>
         </div>
       </div>
@@ -150,7 +156,7 @@ export default function MentalWellnessDashboard() {
           <h2 className="text-3xl font-light text-foreground mb-4">You're not logged in</h2>
           <p className="mb-6 text-muted-foreground">Please log in to access your dashboard.</p>
           <a href="/signin">
-            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-full px-8 py-3">
+            <Button className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full px-8 py-3">
               Log In
             </Button>
           </a>
@@ -172,18 +178,46 @@ export default function MentalWellnessDashboard() {
           </div>
           <h2 className="text-4xl font-light text-foreground mb-2">
             What would you like to
-            <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">
               {" "}focus on{" "}
             </span>
             today?
           </h2>
           <p className="text-lg text-muted-foreground mb-8 font-light">{message}</p>
 
+          <div className="max-w-2xl mx-auto mb-10 p-6 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-teal-500/5 border border-emerald-500/10 backdrop-blur-sm">
+            <p className="text-lg font-serif italic text-foreground/80 mb-2 leading-relaxed">
+              "{quote.text}"
+            </p>
+            <p className="text-sm font-light text-muted-foreground">— {quote.author}</p>
+          </div>
+
+          <div className="flex flex-col items-center gap-6">
+            <div className="flex items-center gap-4">
+              <Button 
+                onClick={() => setShowBreathing(!showBreathing)} 
+                variant="outline"
+                className="rounded-full px-6 py-2 border-emerald-500/20 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10"
+              >
+                {showBreathing ? "Close Pacer" : "Launch Breathing Pacer"}
+              </Button>
+            </div>
+            {showBreathing && (
+              <div className="mb-10 w-full max-w-md animate-in fade-in zoom-in duration-300">
+                <BreathingPacer onClose={() => setShowBreathing(false)} />
+              </div>
+            )}
+          </div>
+
           <SearchBar value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
           <QuickActions selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
         </div>
 
         <StatsCards completedToday={doneToday} dailyGoal={dailyGoal} weeklyCompleted={weeklyCompleted} />
+
+        <div className="mb-8">
+          <MoodGarden weeklyCompleted={weeklyCompleted} />
+        </div>
 
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">
@@ -241,7 +275,11 @@ export default function MentalWellnessDashboard() {
             </div>
           </div>
         )}
+        <div className="mb-8">
+          <CommunityPulse />
+        </div>
       </main>
+      <HealthChatbot />
     </div>
   );
 }

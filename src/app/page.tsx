@@ -11,7 +11,7 @@ import Testimonials from '@/components/hope';
 import FAQ from '@/components/FAQ';
 import Ready from '@/components/Ready';
 import Footer from '@/components/Footer';
-import HealthChatbot from '@/components/HealthChatbot';
+
 
 export default function Page() {
   const { user, loading } = useUser();
@@ -46,7 +46,6 @@ export default function Page() {
         <Ready />
         <Footer />
       </main>
-      <HealthChatbot />
     </div>
   );
 }

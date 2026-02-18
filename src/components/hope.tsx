@@ -59,12 +59,12 @@ export default function Testimonials() {
           <div>
             <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-12 bg-gradient-to-r from-teal-500 to-transparent" />
-              <span className="text-xs font-medium uppercase tracking-widest text-teal-600 dark:text-teal-400">Testimonials</span>
+              <span className="text-xs font-medium uppercase tracking-widest text-teal-600 dark:text-teal-300">Testimonials</span>
             </div>
             <h2 className="text-3xl lg:text-5xl font-semibold text-foreground tracking-tight mb-6">
               Stories of
               <br />
-              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 dark:from-teal-400 dark:to-emerald-400">transformation</span>
+              <span className="font-serif italic font-normal text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-600 dark:from-teal-300 dark:to-emerald-300">transformation</span>
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-md">
               Real words from real people. Every journey is different, but the destination is the same: a healthier, happier you.
@@ -152,8 +152,8 @@ export default function Testimonials() {
             </div>
 
             {/* Decorative floating cards */}
-            <div className="absolute -bottom-4 -right-4 lg:-right-8 w-32 h-20 rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-900/30 dark:to-orange-900/30 border border-amber-200/50 dark:border-amber-700/30 shadow-lg transform rotate-3 hidden sm:block" />
-            <div className="absolute -top-4 -left-4 lg:-left-8 w-24 h-16 rounded-xl bg-gradient-to-br from-teal-100 to-emerald-100 dark:from-teal-900/30 dark:to-emerald-900/30 border border-teal-200/50 dark:border-teal-700/30 shadow-lg transform -rotate-6 hidden sm:block" />
+            <div className="absolute -bottom-4 -right-4 lg:-right-8 w-32 h-20 rounded-2xl bg-gradient-to-br from-amber-100 to-orange-100 dark:from-amber-800/40 dark:to-orange-800/40 border border-amber-200/50 dark:border-amber-600/40 shadow-lg transform rotate-3 hidden sm:block" />
+            <div className="absolute -top-4 -left-4 lg:-left-8 w-24 h-16 rounded-xl bg-gradient-to-br from-teal-100 to-emerald-100 dark:from-teal-800/40 dark:to-emerald-800/40 border border-teal-200/50 dark:border-teal-600/40 shadow-lg transform -rotate-6 hidden sm:block" />
           </div>
         </div>
       </div>

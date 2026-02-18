@@ -22,7 +22,7 @@ export default function StatsCards({ completedToday, dailyGoal, weeklyCompleted 
             <p className="text-3xl font-light text-foreground">
               {completedToday}<span className="text-muted-foreground">/{dailyGoal}</span>
             </p>
-            <span className="px-3 py-1 text-xs rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-300 border border-purple-500/20">
+            <span className="px-3 py-1 text-xs rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 border border-emerald-500/20">
               activities completed
             </span>
             <CircularProgress value={progressPercentage} size={64} />

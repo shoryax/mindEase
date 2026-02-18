@@ -25,7 +25,7 @@ interface ActivityCardProps {
 
 const getCategoryGradient = (category: string) => {
   const gradients: Record<string, string> = {
-    meditation: "from-purple-500/10 to-indigo-500/10 dark:from-purple-500/20 dark:to-indigo-500/20",
+    meditation: "from-teal-500/10 to-emerald-500/10 dark:from-teal-500/20 dark:to-emerald-500/20",
     breathing: "from-emerald-500/10 to-cyan-500/10 dark:from-emerald-500/20 dark:to-cyan-500/20",
     mindfulness: "from-rose-500/10 to-pink-500/10 dark:from-rose-500/20 dark:to-pink-500/20",
     sleep: "from-blue-500/10 to-indigo-500/10 dark:from-blue-500/20 dark:to-indigo-500/20",
@@ -153,7 +153,7 @@ export default function ActivityCard({ activity, userId, onToggleFavorite, incre
               </>
             ) : (
               <div className="text-center py-8">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
                   <Play className="h-6 w-6 text-foreground/70" />
                 </div>
                 <h4 className="text-lg font-medium text-foreground mb-2">Activity Started!</h4>
