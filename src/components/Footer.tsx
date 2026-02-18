@@ -1,65 +1,77 @@
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, ArrowUpRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative z-10 mt-16">
-      <div className="w-[97%] mx-auto bg-black/5 dark:bg-white/5 backdrop-blur-sm border border-black/10 dark:border-white/10 rounded-t-2xl">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="md:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <img src="/healthBroken.svg" alt="Logo" className="w-5 h-5" />
-                <span className="text-lg font-medium text-foreground">Cards for Mental Health</span>
+    <footer id="contact" className="relative z-10 border-t border-border">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-14">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          {/* Brand */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Link href="/" className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-500 flex items-center justify-center">
+                <img src="/healthBroken.svg" alt="Logo" className="w-4 h-4 invert" />
               </div>
-              <p className="text-muted-foreground mb-6 max-w-md text-sm leading-relaxed">
-                Supporting mental wellness through thoughtfully designed resources and tools.
-                Your journey to better mental health starts here.
-              </p>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <Mail className="h-4 w-4 text-purple-500" />
-                  <span className="text-muted-foreground text-sm">support@cardsformentalhealth.com</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Phone className="h-4 w-4 text-purple-500" />
-                  <span className="text-muted-foreground text-sm">1-800-MENTAL-H</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <MapPin className="h-4 w-4 text-purple-500" />
-                  <span className="text-muted-foreground text-sm">Supporting globally</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-medium text-foreground mb-4 uppercase tracking-wider">Quick Links</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Home</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Cards</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Resources</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">About</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="text-sm font-medium text-foreground mb-4 uppercase tracking-wider">Support</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Crisis Support</a></li>
-                <li><a href="https://www.google.com/maps/search/psychologists+near+me" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Find a Therapist</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">FAQ</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-foreground text-sm transition-colors">Privacy Policy</a></li>
-              </ul>
+              <span className="font-semibold text-foreground">MindfulCare</span>
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
+              Evidence-based therapy for lasting change. Virtual and in-person sessions available.
+            </p>
+            <div className="flex items-center gap-4">
+              <a href="mailto:hello@mindfulcare.com" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Mail className="w-4 h-4" />
+              </a>
+              <a href="tel:+18005551234" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Phone className="w-4 h-4" />
+              </a>
             </div>
           </div>
 
-          <div className="border-t border-border mt-12 pt-8 text-center">
-            <p className="text-muted-foreground text-sm">
-              © 2025 Cards for Mental Health. Made with love for mental wellness.
-            </p>
-            <p className="text-muted-foreground/50 text-xs mt-2">
-              If you're experiencing a mental health crisis, please contact emergency services or a crisis hotline immediately.
-            </p>
+          {/* Services */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 mb-4">Services</h3>
+            <ul className="space-y-2.5">
+              <li><Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Individual Therapy</Link></li>
+              <li><Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Couples Therapy</Link></li>
+              <li><Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Trauma Recovery</Link></li>
+              <li><Link href="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Virtual Sessions</Link></li>
+            </ul>
           </div>
+
+          {/* Company */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 mb-4">Company</h3>
+            <ul className="space-y-2.5">
+              <li><Link href="/about" className="text-sm text-muted-foreground hover:text-foreground transition-colors">About</Link></li>
+              <li><Link href="/resources" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Resources</Link></li>
+              <li><Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
+              <li>
+                <a href="https://www.google.com/maps/search/psychologists+near+me" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Find a Therapist <ArrowUpRight className="w-3 h-3" />
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Legal + Crisis */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 mb-4">Legal</h3>
+            <ul className="space-y-2.5">
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms of Service</a></li>
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">HIPAA Compliance</a></li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-xs text-muted-foreground">
+            &copy; 2026 MindfulCare. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground/60 text-center sm:text-right">
+            Crisis? Call 988 or text HOME to 741741.
+          </p>
         </div>
       </div>
     </footer>
