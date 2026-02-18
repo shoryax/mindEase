@@ -35,7 +35,7 @@ export default function AboutPage() {
                 <span className="font-serif italic font-normal text-muted-foreground">real care</span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed mb-6">
-                MindfulCare was founded on a simple idea: everyone deserves access to quality mental health support, delivered with warmth and backed by science.
+                MindEase was built on a simple idea: everyone deserves access to quality mental wellness tools, available instantly and powered by AI.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Our team of licensed therapists brings decades of combined experience across a wide range of specializations. We stay current with the latest research and therapeutic approaches so that our clients always receive the best possible care.

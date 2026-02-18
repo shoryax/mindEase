@@ -12,14 +12,14 @@ export default function Footer() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-500 flex items-center justify-center">
                 <img src="/healthBroken.svg" alt="Logo" className="w-4 h-4 invert" />
               </div>
-              <span className="font-semibold text-foreground">MindfulCare</span>
+              <span className="font-semibold text-foreground">MindEase</span>
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
               AI-powered mental wellness tools — available 24/7, no appointments needed.
             </p>
-            <a href="mailto:hello@mindfulcare.app" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+            <a href="mailto:hello@mindease.app" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
               <Mail className="w-4 h-4" />
-              <span className="text-sm">hello@mindfulcare.app</span>
+              <span className="text-sm">hello@mindease.app</span>
             </a>
           </div>
 
@@ -57,7 +57,7 @@ export default function Footer() {
 
         <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-3">
           <p className="text-xs text-muted-foreground">
-            &copy; 2026 MindfulCare. All rights reserved.
+            &copy; 2026 MindEase. All rights reserved.
           </p>
           <p className="text-xs text-muted-foreground/60 text-center sm:text-right">
             Not a substitute for professional mental health care. Crisis? Call 988.

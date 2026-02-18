@@ -18,14 +18,16 @@ const features = [
     desc: 'Share what\'s on your mind. HealthPal detects your emotions and responds like a compassionate guide, 24/7.',
     icon: Heart,
     color: 'rose',
-    href: '/healthpal'
+    href: '/healthpal',
+    tag: 'AI-powered'
   },
   {
     title: 'AI Doctor',
     desc: 'Point your camera at any medicine packaging and instantly understand what it is, how it works, and its side effects.',
     icon: Stethoscope,
     color: 'sky',
-    href: '/ai-doctor'
+    href: '/ai-doctor',
+    tag: 'AI-powered'
   },
   {
     title: 'Sound Mixer',
@@ -46,7 +48,8 @@ const features = [
     desc: 'An AI-written summary of your week — patterns, wins, and personalized suggestions for the week ahead.',
     icon: BarChart2,
     color: 'amber',
-    href: '/digest'
+    href: '/digest',
+    tag: 'AI-powered'
   }
 ];
 

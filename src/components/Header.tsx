@@ -60,7 +60,7 @@ export default function Header() {
           <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-500 flex items-center justify-center shadow-md shadow-teal-500/20 group-hover:shadow-teal-500/30 transition-shadow">
             <img src="/healthBroken.svg" alt="Logo" className="w-3.5 h-3.5 invert" />
           </div>
-          <span className="text-foreground font-semibold text-sm hidden sm:inline tracking-tight">MindfulCare</span>
+          <span className="text-foreground font-semibold text-sm hidden sm:inline tracking-tight">MindEase</span>
         </Link>
 
         {/* Divider */}

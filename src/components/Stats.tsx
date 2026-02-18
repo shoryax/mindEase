@@ -2,9 +2,9 @@
 import { useRef, useEffect, useState } from 'react';
 
 const stats = [
-  { value: 10400, suffix: '+', label: 'Active users', sublabel: 'Tracking their wellness daily' },
-  { value: 98, suffix: '%', label: 'Feel better', sublabel: 'After their first week' },
-  { value: 4.8, suffix: '', label: 'App rating', sublabel: 'Loved by our community' },
+  { value: 100, suffix: '+', label: 'Active users', sublabel: 'Tracking their wellness daily' },
+  { value: 93, suffix: '%', label: 'Feel better', sublabel: 'After their first week' },
+  { value: 4.4, suffix: '', label: 'App rating', sublabel: 'Loved by our community' },
   { value: 3, suffix: '', label: 'AI tools', sublabel: 'HealthPal, AI Doctor, CBT Coach' }
 ];
 

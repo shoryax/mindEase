@@ -4,8 +4,8 @@ import { Plus, Minus } from 'lucide-react';
 
 const faqs = [
   {
-    question: "What is MindfulCare?",
-    answer: "MindfulCare is an AI-powered mental wellness platform. It gives you tools to track your mood, reframe negative thoughts with CBT techniques, talk to an empathetic AI therapist, analyze medicines, and create a calming sound environment — all without needing an appointment.",
+    question: "What is MindEase?",
+    answer: "MindEase is an AI-powered mental wellness platform. It gives you tools to track your mood, reframe negative thoughts with CBT techniques, talk to an empathetic AI therapist, analyze medicines, and create a calming sound environment — all without needing an appointment.",
     category: "About"
   },
   {
@@ -24,13 +24,13 @@ const faqs = [
     category: "Features"
   },
   {
-    question: "Do I need to pay to use MindfulCare?",
-    answer: "MindfulCare is free to get started. You can access the dashboard, mood tracking, breathing pacer, and sound mixer without any subscription. Some AI-powered features (HealthPal, CBT Coach, AI Doctor, Weekly Digest) require a free account.",
+    question: "Do I need to pay to use MindEase?",
+    answer: "MindEase is free to get started. You can access the dashboard, mood tracking, breathing pacer, and sound mixer without any subscription. Some AI-powered features (HealthPal, CBT Coach, AI Doctor, Weekly Digest) require a free account.",
     category: "Pricing"
   },
   {
     question: "Is this a replacement for professional therapy?",
-    answer: "No. MindfulCare is a self-care and mental wellness tool, not a clinical service. It's designed to support your mental health between (or instead of) professional sessions — for everyday stress, anxiety management, and building healthy habits. For serious mental health conditions, please consult a licensed professional.",
+    answer: "No. MindEase is a self-care and mental wellness tool, not a clinical service. It's designed to support your mental health between (or instead of) professional sessions — for everyday stress, anxiety management, and building healthy habits. For serious mental health conditions, please consult a licensed professional.",
     category: "Important"
   }
 ];
@@ -57,7 +57,7 @@ export default function FAQ() {
                 Everything you need to know before you begin. Still curious? Reach out anytime.
               </p>
               <a
-                href="mailto:hello@mindfulcare.app"
+                href="mailto:hello@mindease.app"
                 className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 dark:text-teal-300 hover:text-teal-700 dark:hover:text-teal-200 transition-colors group"
               >
                 Contact us

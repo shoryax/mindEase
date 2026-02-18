@@ -33,7 +33,7 @@ const SOUNDS: Sound[] = [
   { id: "crickets", name: "Night Crickets", file: "/sounds/night_crickets.mp3", icon: MoonStar, color: "from-indigo-400 to-purple-500" },
 ];
 
-const STORAGE_KEY = "mindfulcare_sound_volumes";
+const STORAGE_KEY = "mindease_sound_volumes";
 
 function loadVolumes(): Record<string, number> {
   if (typeof window === "undefined") return {};

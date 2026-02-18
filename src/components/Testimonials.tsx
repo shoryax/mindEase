@@ -70,7 +70,7 @@ export default function Testimonials() {
 
             <div className="flex items-center gap-6 p-5 rounded-2xl bg-white/60 dark:bg-white/5 border border-border/50 max-w-sm">
               <div>
-                <div className="text-4xl font-semibold text-foreground">4.8</div>
+                <div className="text-4xl font-semibold text-foreground">4.4</div>
                 <div className="flex items-center gap-1 mt-1">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
@@ -79,7 +79,7 @@ export default function Testimonials() {
               </div>
               <div className="h-12 w-px bg-border" />
               <div>
-                <div className="text-sm font-medium text-foreground">10,400+ users</div>
+                <div className="text-sm font-medium text-foreground">100+ users</div>
                 <div className="text-xs text-muted-foreground">tracking their wellness</div>
               </div>
             </div>

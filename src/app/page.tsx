@@ -8,7 +8,7 @@ import Hero from '@/components/Hero';
 import Stats from '@/components/Stats';
 import AIFeatures from '@/components/AIFeatures';
 import FeaturedCards from '@/components/FeaturedCards';
-import Testimonials from '@/components/hope';
+import Testimonials from '@/components/Testimonials';
 import FAQ from '@/components/FAQ';
 import Ready from '@/components/Ready';
 import Footer from '@/components/Footer';
