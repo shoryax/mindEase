@@ -37,8 +37,8 @@ export default function CircularProgress({ value, size = 64 }: CircularProgressP
         />
         <defs>
           <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#a855f7" />
-            <stop offset="100%" stopColor="#ec4899" />
+            <stop offset="0%" stopColor="#10b981" />
+            <stop offset="100%" stopColor="#14b8a6" />
           </linearGradient>
         </defs>
       </svg>

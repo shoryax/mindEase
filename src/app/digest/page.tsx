@@ -99,6 +99,22 @@ export default function DigestPage() {
 
   useEffect(() => {
     fetchStats();
+    if (!user) return;
+    // Load this week's saved digest
+    const startOfWeek = new Date();
+    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
+    startOfWeek.setHours(0, 0, 0, 0);
+    supabase
+      .from("digests")
+      .select("summary")
+      .eq("user_id", user.id)
+      .gte("created_at", startOfWeek.toISOString())
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .single()
+      .then(({ data }) => {
+        if (data?.summary) setSummary(data.summary);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -117,6 +133,16 @@ export default function DigestPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to generate");
       setSummary(data.summary);
+      // Save to Supabase
+      const weekStart = new Date();
+      weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+      weekStart.setHours(0, 0, 0, 0);
+      await supabase.from("digests").insert({
+        user_id: user!.id,
+        summary: data.summary,
+        week_stats: weekStats,
+        week_start: weekStart.toISOString().split("T")[0],
+      });
     } catch (e: any) {
       setError(e.message || "Something went wrong");
     } finally {

@@ -4,7 +4,7 @@ import {
   CloudRain,
   Trees,
   Waves,
-  Wind,
+  BlocksIcon,
   Flame,
   MoonStar,
   Volume2,
@@ -12,6 +12,7 @@ import {
   Music,
 } from "lucide-react";
 import { useUser } from "../../contexts/UserContext";
+import { supabase } from "../../lib/supabaseClient";
 import Header from "../../components/Header";
 import { Button } from "@/components/ui/button";
 
@@ -27,7 +28,7 @@ const SOUNDS: Sound[] = [
   { id: "rain", name: "Rain", file: "/sounds/rain.mp3", icon: CloudRain, color: "from-blue-400 to-cyan-500" },
   { id: "forest", name: "Forest Birds", file: "/sounds/forest.mp3", icon: Trees, color: "from-green-400 to-emerald-500" },
   { id: "ocean", name: "Ocean Waves", file: "/sounds/ocean.mp3", icon: Waves, color: "from-teal-400 to-blue-500" },
-  { id: "whitenoise", name: "White Noise", file: "/sounds/whitenoise.mp3", icon: Wind, color: "from-gray-400 to-slate-500" },
+  { id: "no noise", name: "No Noise", file: "/sounds/whitenoise.mp3", icon: BlocksIcon, color: "from-gray-400 to-slate-500" },
   { id: "fireplace", name: "Fireplace", file: "/sounds/fireplace.mp3", icon: Flame, color: "from-orange-400 to-red-500" },
   { id: "crickets", name: "Night Crickets", file: "/sounds/night_crickets.mp3", icon: MoonStar, color: "from-indigo-400 to-purple-500" },
 ];
@@ -51,6 +52,7 @@ function saveVolumes(volumes: Record<string, number>) {
 export default function SoundsPage() {
   const { user, loading } = useUser();
   const howlsRef = useRef<Record<string, any>>({});
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [active, setActive] = useState<Record<string, boolean>>({});
   const [volumes, setVolumes] = useState<Record<string, number>>({});
   const [howlerLoaded, setHowlerLoaded] = useState(false);
@@ -83,6 +85,37 @@ export default function SoundsPage() {
     };
   }, []);
 
+  // Sync from Supabase once user is available, override localStorage defaults
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("sound_preferences")
+      .select("preferences")
+      .eq("user_id", user.id)
+      .single()
+      .then(({ data }) => {
+        if (data?.preferences) {
+          const prefs = data.preferences as Record<string, number>;
+          setVolumes((prev) => ({ ...prev, ...prefs }));
+          saveVolumes(prefs);
+          Object.entries(prefs).forEach(([id, vol]) => {
+            if (howlsRef.current[id]) howlsRef.current[id].volume(vol);
+          });
+        }
+      });
+  }, [user]);
+
+  const saveToSupabase = (newVolumes: Record<string, number>) => {
+    if (!user) return;
+    if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+    saveTimeoutRef.current = setTimeout(() => {
+      supabase.from("sound_preferences").upsert(
+        { user_id: user.id, preferences: newVolumes, updated_at: new Date().toISOString() },
+        { onConflict: "user_id" }
+      );
+    }, 1000);
+  };
+
   const toggle = (id: string) => {
     const howl = howlsRef.current[id];
     if (!howl) return;
@@ -101,6 +134,7 @@ export default function SoundsPage() {
     setVolumes((prev) => {
       const next = { ...prev, [id]: value };
       saveVolumes(next);
+      saveToSupabase(next);
       return next;
     });
   };
@@ -223,7 +257,7 @@ export default function SoundsPage() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground/50 mt-10">
-          Volume preferences are saved to your browser automatically.
+          Volume preferences are synced to your account automatically.
         </p>
       </main>
     </div>
