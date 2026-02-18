@@ -31,7 +31,8 @@ export async function POST(req: Request) {
       ],
     });
 
-    const raw = response.message.content[0].text;
+    const firstContent = response.message.content?.[0];
+    const raw = firstContent && "text" in firstContent ? firstContent.text : "";
 
     // Parse JSON from response (handle markdown code blocks)
     const jsonMatch = raw.match(/\{[\s\S]*\}/);

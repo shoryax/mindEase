@@ -29,7 +29,7 @@ const SOUNDS: Sound[] = [
   { id: "ocean", name: "Ocean Waves", file: "/sounds/ocean.mp3", icon: Waves, color: "from-teal-400 to-blue-500" },
   { id: "whitenoise", name: "White Noise", file: "/sounds/whitenoise.mp3", icon: Wind, color: "from-gray-400 to-slate-500" },
   { id: "fireplace", name: "Fireplace", file: "/sounds/fireplace.mp3", icon: Flame, color: "from-orange-400 to-red-500" },
-  { id: "crickets", name: "Night Crickets", file: "/sounds/crickets.mp3", icon: MoonStar, color: "from-indigo-400 to-purple-500" },
+  { id: "crickets", name: "Night Crickets", file: "/sounds/night_crickets.mp3", icon: MoonStar, color: "from-indigo-400 to-purple-500" },
 ];
 
 const STORAGE_KEY = "mindfulcare_sound_volumes";
@@ -56,42 +56,32 @@ export default function SoundsPage() {
   const [howlerLoaded, setHowlerLoaded] = useState(false);
   const [missingFiles, setMissingFiles] = useState(false);
 
-  // Load Howler dynamically (client-only)
+  // Load Howler and create instances — require() inside useEffect is client-only safe
   useEffect(() => {
-    import("howler").then(() => setHowlerLoaded(true));
-  }, []);
-
-  useEffect(() => {
-    if (!howlerLoaded) return;
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { Howl } = require("howler");
     const saved = loadVolumes();
     const initialVolumes: Record<string, number> = {};
+
     SOUNDS.forEach((s) => {
-      initialVolumes[s.id] = saved[s.id] ?? 0.5;
+      const vol = saved[s.id] ?? 0.5;
+      initialVolumes[s.id] = vol;
+      howlsRef.current[s.id] = new Howl({
+        src: [s.file],
+        loop: true,
+        volume: vol,
+        onloaderror: () => setMissingFiles(true),
+      });
     });
+
     setVolumes(initialVolumes);
-  }, [howlerLoaded]);
-
-  // Create Howl instances once volumes are ready
-  useEffect(() => {
-    if (!howlerLoaded || Object.keys(volumes).length === 0) return;
-    const { Howl } = require("howler");
-
-    SOUNDS.forEach((s) => {
-      if (!howlsRef.current[s.id]) {
-        howlsRef.current[s.id] = new Howl({
-          src: [s.file],
-          loop: true,
-          volume: volumes[s.id] ?? 0.5,
-          onloaderror: () => setMissingFiles(true),
-        });
-      }
-    });
+    setHowlerLoaded(true);
 
     return () => {
       Object.values(howlsRef.current).forEach((h: any) => h.stop());
+      howlsRef.current = {};
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [howlerLoaded]);
+  }, []);
 
   const toggle = (id: string) => {
     const howl = howlsRef.current[id];
@@ -167,7 +157,7 @@ export default function SoundsPage() {
           )}
         </div>
 
-        {missingFiles && (
+        {/* {missingFiles && (
           <div className="mb-8 p-5 rounded-2xl border border-amber-500/30 bg-amber-500/5 text-amber-700 dark:text-amber-300 text-sm">
             <p className="font-medium mb-2">Sound files not found.</p>
             <p>Please add the following MP3 files to your <code className="bg-black/10 dark:bg-white/10 px-1.5 py-0.5 rounded text-xs">public/sounds/</code> directory:</p>
@@ -175,7 +165,7 @@ export default function SoundsPage() {
               {SOUNDS.map((s) => <li key={s.id}><code className="text-xs">{s.file.replace("/sounds/", "")}</code></li>)}
             </ul>
           </div>
-        )}
+        )} */}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {SOUNDS.map((sound) => {

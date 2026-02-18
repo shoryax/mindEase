@@ -101,7 +101,6 @@ export default function CommunityPulse() {
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(value: number, name: string) => [value, name]}
                   contentStyle={{
                     borderRadius: "12px",
                     border: "1px solid rgba(0,0,0,0.1)",

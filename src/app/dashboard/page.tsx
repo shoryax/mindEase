@@ -54,6 +54,7 @@ export default function MentalWellnessDashboard() {
 
     if (!error) {
       setDoneToday(newCount);
+      setWeeklyCompleted(prev => prev + 1);
     }
   }, [user, doneToday]);
 
@@ -192,7 +193,7 @@ export default function MentalWellnessDashboard() {
             <p className="text-sm font-light text-muted-foreground">— {quote.author}</p>
           </div>
 
-          <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-col items-center my-5 gap-6">
             <div className="flex items-center gap-4">
               <Button 
                 onClick={() => setShowBreathing(!showBreathing)} 
