@@ -1,10 +1,10 @@
-# 🧠 MentalHealth - Your Digital Wellness Companion
+# 🧠 MindEase - Your Digital Wellness Companion
 
-A modern, compassionate mental health and wellness web application designed to help users on their journey to better mental well-being. 
+A modern, compassionate mental health and wellness web application designed to help users on their journey to better mental well-being with mymentalhealthpal AI therapist support.
 
 ## ✨ Features
 
-- **🤖 AI Health Assistant** - Chat with an AI-powered health bot for guidance on symptoms, nutrition, and wellness tips
+- **🤖 AI Therapist (mymentalhealthpal)** - Chat with an AI-powered therapist for guidance on mental health, symptoms, nutrition, and wellness tips
 - **🧘 Guided Activities** - Access curated mindfulness, meditation, breathing exercises, and journaling prompts
 - **📊 Personal Dashboard** - Track your daily wellness goals and monitor your progress
 - **🌙 Dark Mode** - Comfortable viewing experience in any lighting condition
@@ -24,8 +24,8 @@ A modern, compassionate mental health and wellness web application designed to h
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/shoryax/mentalHealth.git
-   cd mentalHealth
+   git clone https://github.com/shoryax/MindEase.git
+   cd MindEase
    ```
 
 2.  **Install dependencies**
