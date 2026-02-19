@@ -4,7 +4,7 @@ const cohere = new CohereClientV2({
   token: process.env.COHERE_API_KEY,
 });
 
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
     const { message } = await req.json();
 
@@ -31,9 +31,10 @@ export async function POST(req) {
       ],
     });
 
-    const reply = response.message.content[0].text;
+    const content = response.message.content?.[0];
+    const reply = content && "text" in content ? content.text : "";
     return Response.json({ reply });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Chat API error:", error);
     return Response.json(
       { error: error.message || "Failed to process request" },
