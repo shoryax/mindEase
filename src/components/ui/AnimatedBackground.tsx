@@ -41,7 +41,11 @@ export default function InteractiveBackground() {
         ref={orb1Ref}
         className="absolute w-[500px] h-[500px] rounded-full opacity-15 dark:opacity-25 blur-[120px] pointer-events-none will-change-transform"
         style={{
+<<<<<<< HEAD
+          background: `radial-gradient(circle, hsl(var(--primary)) 0%, transparent 35%)`,
+=======
           background: 'radial-gradient(circle, #10b981 0%, transparent 70%)',
+>>>>>>> main
         }}
       />
 
