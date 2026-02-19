@@ -1,73 +1,69 @@
-import React from 'react';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import Link from 'next/link';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <div className='w-[97%] flex justify-center mx-auto "bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-t-[15px] font-light text-white transition-all duration-300'>
-      <footer id="contact" className="bg-[#0d091e] flex w-[100%] items-center justify-center rounded-t-[15px] text-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <img src="/healthBroken.svg" alt="Google logo" className="w-5 h-5" />
-              <span className="text-xl font-semibold">
-                Cards for Mental Health
-              </span>
-            </div>
-            <p className="text-gray-300 mb-6 max-w-md">
-              Supporting mental wellness through thoughtfully designed resources and tools.
-              Your journey to better mental health starts here.
+    <footer className="relative z-10 border-t border-border">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-14">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+          {/* Brand */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Link href="/" className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-teal-500 to-emerald-500 flex items-center justify-center">
+                <img src="/healthBroken.svg" alt="Logo" className="w-4 h-4 invert" />
+              </div>
+              <span className="font-semibold text-foreground">MindEase</span>
+            </Link>
+            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs mb-4">
+              AI-powered mental wellness tools — available 24/7, no appointments needed.
             </p>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-pink-400" />
-                <span className="text-gray-300">support@cardsformentalhealth.com</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-pink-400" />
-                <span className="text-gray-300">1-800-MENTAL-H</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-5 w-5 text-pink-400" />
-                <span className="text-gray-300">Supporting globally</span>
-              </div>
-            </div>
+            <a href="mailto:hello@mindease.app" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+              <Mail className="w-4 h-4" />
+              <span className="text-sm">hello@mindease.app</span>
+            </a>
           </div>
 
+          {/* Tools */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="#home" className="text-gray-300 hover:text-white transition-colors">Home</a></li>
-              <li><a href="#cards" className="text-gray-300 hover:text-white transition-colors">Cards</a></li>
-              <li><a href="#resources" className="text-gray-300 hover:text-white transition-colors">Resources</a></li>
-              <li><a href="#about" className="text-gray-300 hover:text-white transition-colors">About</a></li>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 mb-4">Tools</h3>
+            <ul className="space-y-2.5">
+              <li><Link href="/healthpal" className="text-sm text-muted-foreground hover:text-foreground transition-colors">AI Therapist</Link></li>
+              <li><Link href="/cbt" className="text-sm text-muted-foreground hover:text-foreground transition-colors">CBT Coach</Link></li>
+              <li><Link href="/ai-doctor" className="text-sm text-muted-foreground hover:text-foreground transition-colors">AI Doctor</Link></li>
+              <li><Link href="/sounds" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Sound Mixer</Link></li>
+              <li><Link href="/digest" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Weekly Digest</Link></li>
             </ul>
           </div>
 
+          {/* App */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Support</h3>
-            <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Crisis Support</a></li>
-              <li><a href="https://www.google.com/maps/search/physcologists+near+me" className="text-gray-300 hover:text-white transition-colors">Find a Therapist</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">FAQ</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 mb-4">Account</h3>
+            <ul className="space-y-2.5">
+              <li><Link href="/signin" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Sign In</Link></li>
+              <li><Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Dashboard</Link></li>
+              <li><Link href="/settings" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Settings</Link></li>
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 mb-4">Legal</h3>
+            <ul className="space-y-2.5">
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a></li>
+              <li><a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms of Service</a></li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-12 pt-8 text-center">
-          <p className="text-gray-400">
-            © 2025 Cards for Mental Health. Made with ❤️ for mental wellness.
+        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-3">
+          <p className="text-xs text-muted-foreground">
+            &copy; 2026 MindEase. All rights reserved.
           </p>
-          <p className="text-gray-500 text-sm mt-2">
-            If you're experiencing a mental health crisis, please contact emergency services or a crisis hotline immediately.
+          <p className="text-xs text-muted-foreground/60 text-center sm:text-right">
+            Not a substitute for professional mental health care. Crisis? Call 988.
           </p>
         </div>
       </div>
     </footer>
-    </div>
   );
-};
-
-export default Footer;
+}

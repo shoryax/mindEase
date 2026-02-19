@@ -5,23 +5,17 @@ import './globals.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="font-satoshi">
-      <head>
-        <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="en">
       <body>
         <UserProvider>
           <DarkModeProvider>
             <InteractiveBackground />
-            <div className="relative z-10">{children}</div>
+            <div className="relative z-10">
+              {children}
+            </div>
           </DarkModeProvider>
         </UserProvider>
       </body>
     </html>
-  )
+  );
 }
-
-
-
-{/* <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&display=swap" rel="stylesheet" /> */}
-// for satoshi font

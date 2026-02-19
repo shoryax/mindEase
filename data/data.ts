@@ -85,4 +85,12 @@ export const activities = [
   }
 ];
 
+export const quotes = [
+  { text: "The soul always knows what to do to heal itself. The challenge is to silence the mind.", author: "Caroline Myss" },
+  { text: "Mindfulness isn't difficult, we just need to remember to do it.", author: "Sharon Salzberg" },
+  { text: "Your calm mind is the ultimate weapon against your challenges.", author: "Bryant McGill" },
+  { text: "Everything that has a beginning has an ending. Make your peace with that and all will be well.", author: "Jack Kornfield" },
+  { text: "Feelings come and go like clouds in a windy sky. Conscious breathing is my anchor.", author: "Thich Nhat Hanh" }
+];
+
 export const dailyGoal = 3;

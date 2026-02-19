@@ -1,31 +1,53 @@
-import React from 'react';
+'use client';
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useUser } from '@/contexts/UserContext';
 import Header from '@/components/Header';
-import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import Stats from '@/components/Stats';
+import AIFeatures from '@/components/AIFeatures';
 import FeaturedCards from '@/components/FeaturedCards';
-import Categories from '@/components/Categories';
+import Testimonials from '@/components/Testimonials';
+import FAQ from '@/components/FAQ';
 import Ready from '@/components/Ready';
-import Testimonials from '@/components/hope';
 import Footer from '@/components/Footer';
-import FAQ from '@/components/fq';
-import HealthChatbot from '@/components/HealthChatbot';
-import './globals.css';
 
-const Page = () => {
+
+export default function Page() {
+  const { user, loading } = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.replace('/dashboard');
+    }
+  }, [user, loading, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-teal-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (user) return null;
+
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      <Hero />
-      <Stats />
-      <FeaturedCards />
-      <Testimonials />
-      <FAQ />
-      <Ready />
-      <Footer />
-      <HealthChatbot />
+    <div className="min-h-screen relative">
+      <div className="grain-overlay" />
+      <Header />
+      <main className="pt-24">
+        <Hero />
+        <Stats />
+        <AIFeatures />
+        <FeaturedCards />
+        <Testimonials />
+        <FAQ />
+        <Ready />
+        <Footer />
+      </main>
     </div>
   );
-};
-
-export default Page;
+}
