@@ -1,9 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 
 export default function SignInPage() {
+  const [loading, setLoading] = useState(false);
+
   const handleGoogleLogin = async () => {
+    setLoading(true);
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -11,6 +15,22 @@ export default function SignInPage() {
       },
     });
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 rounded-full bg-black/5 dark:bg-white/5 border border-border flex items-center justify-center">
+              <img src="/healthBroken.svg" alt="MindEase" className="w-8 h-8" />
+            </div>
+          </div>
+          <h1 className="text-xl font-light text-foreground mb-1">MindEase</h1>
+          <p className="text-muted-foreground text-sm">Redirecting to Google...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center">
@@ -21,7 +41,7 @@ export default function SignInPage() {
           </div>
         </div>
 
-        <h1 className="text-2xl font-light text-foreground mb-2">Welcome back</h1>
+        <h1 className="text-2xl font-light text-foreground mb-1">MindEase</h1>
         <p className="text-muted-foreground mb-8 text-sm">
           Sign in to continue your mental health journey
         </p>
