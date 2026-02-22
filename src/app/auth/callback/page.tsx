@@ -15,12 +15,12 @@ function CallbackInner() {
 
     if (error) {
       setStatus('Authentication failed. Redirecting...');
-      setTimeout(() => router.replace('/signin'), 1500);
+      setTimeout(() => { window.location.href = '/signin'; }, 1500);
       return;
     }
 
     if (!code) {
-      router.replace('/signin');
+      window.location.href = '/signin';
       return;
     }
 
@@ -44,14 +44,15 @@ function CallbackInner() {
 
         if (supabaseError) {
           setStatus('Authentication failed. Redirecting...');
-          setTimeout(() => router.replace('/signin'), 1500);
+          setTimeout(() => { window.location.href = '/signin'; }, 1500);
           return;
         }
 
-        router.replace('/dashboard');
+        // Use window.location for reliability on mobile browsers
+        window.location.href = '/dashboard';
       } catch {
         setStatus('Something went wrong. Redirecting...');
-        setTimeout(() => router.replace('/signin'), 1500);
+        setTimeout(() => { window.location.href = '/signin'; }, 1500);
       }
     }
 
