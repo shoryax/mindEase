@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sun, Moon, Settings, LogOut, ChevronDown } from 'lucide-react';
-import { supabase } from '../lib/supabaseClient';
 import { useUser } from '../contexts/UserContext';
 import Link from 'next/link';
 import { useDarkMode } from './DarkModeProvider';
@@ -32,13 +31,6 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/dashboard` },
-    });
-    if (error) router.push('/signin');
-  };
 
   const handleSignOut = async () => {
     await contextSignOut();
@@ -157,12 +149,12 @@ export default function Header() {
                 )}
               </div>
             ) : (
-              <button
-                onClick={handleSignIn}
+              <Link
+                href="/signin"
                 className="text-xs font-semibold bg-foreground text-background hover:bg-foreground/90 px-4 py-2 rounded-full transition-all shadow-md shadow-foreground/10"
               >
                 Get started
-              </button>
+              </Link>
             )
           )}
         </div>

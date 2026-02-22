@@ -110,7 +110,7 @@ export default function AboutPage() {
           </div>
 
           <div className="text-center">
-            <Link href="/signin" className="inline-flex items-center gap-2 text-sm font-semibold bg-foreground text-background px-6 py-3 rounded-full hover:bg-foreground/90 transition-all">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-sm font-semibold bg-foreground text-background px-6 py-3 rounded-full hover:bg-foreground/90 transition-all">
               Start using MindEase <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

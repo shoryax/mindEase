@@ -39,7 +39,7 @@ export default function Footer() {
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 mb-4">Account</h3>
             <ul className="space-y-2.5">
-              <li><Link href="/signin" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Sign In</Link></li>
+              <li><Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Sign In</Link></li>
               <li><Link href="/dashboard" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Dashboard</Link></li>
               <li><Link href="/settings" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Settings</Link></li>
             </ul>

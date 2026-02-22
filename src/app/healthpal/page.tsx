@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useUser } from "../../contexts/UserContext";
 import { supabase } from "../../lib/supabaseClient";
 import Header from "../../components/Header";
+import NotLoggedIn from "../../components/NotLoggedIn";
 
 interface HealthPalResult {
   sentiment: "positive" | "negative" | "neutral";
@@ -115,16 +116,7 @@ export default function HealthPalPage() {
   }
 
   if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-3xl font-light text-foreground mb-4">Sign in to use MyHealthPal</h2>
-          <a href="/signin">
-            <Button className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full px-8 py-3">Log In</Button>
-          </a>
-        </div>
-      </div>
-    );
+    return <NotLoggedIn message="Sign in to use HealthPal." />;
   }
 
   return (

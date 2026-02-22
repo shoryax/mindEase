@@ -14,6 +14,7 @@ import BreathingPacer from "../../components/BreathingPacer";
 import MoodGarden from "../../components/MoodGarden";
 import CommunityPulse from "../../components/CommunityPulse";
 import { activities as rawActivities, dailyGoal, quotes } from "../../../data/data";
+import NotLoggedIn from "../../components/NotLoggedIn";
 
 const activities: Activity[] = rawActivities.map((a: any) => ({
   ...a,
@@ -151,19 +152,7 @@ export default function MentalWellnessDashboard() {
   }
 
   if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-3xl font-light text-foreground mb-4">You're not logged in</h2>
-          <p className="mb-6 text-muted-foreground">Please log in to access your dashboard.</p>
-          <a href="/signin">
-            <Button className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-full px-8 py-3">
-              Log In
-            </Button>
-          </a>
-        </div>
-      </div>
-    );
+    return <NotLoggedIn message="Sign in to access your wellness dashboard." />;
   }
 
   const favoriteActivities = enrichedActivities.filter(a => favorites.includes(a.id));

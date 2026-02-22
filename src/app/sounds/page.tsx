@@ -14,6 +14,7 @@ import {
 import { useUser } from "../../contexts/UserContext";
 import { supabase } from "../../lib/supabaseClient";
 import Header from "../../components/Header";
+import NotLoggedIn from "../../components/NotLoggedIn";
 import { Button } from "@/components/ui/button";
 
 interface Sound {
@@ -150,19 +151,7 @@ export default function SoundsPage() {
   }
 
   if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-3xl font-light text-foreground mb-4">You're not logged in</h2>
-          <p className="mb-6 text-muted-foreground">Please log in to access the Sound Mixer.</p>
-          <a href="/signin">
-            <Button className="bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-full px-8 py-3">
-              Log In
-            </Button>
-          </a>
-        </div>
-      </div>
-    );
+    return <NotLoggedIn message="Sign in to access the Sound Mixer." />;
   }
 
   return (

@@ -124,7 +124,7 @@ export default function ServicesPage() {
           <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30 border border-teal-200/50 dark:border-teal-800/30 text-center">
             <p className="text-foreground font-medium mb-1">Ready to begin?</p>
             <p className="text-muted-foreground text-sm mb-5">Sign in with Google to unlock all tools — free, no credit card required.</p>
-            <Link href="/signin" className="inline-flex items-center gap-2 text-sm font-semibold bg-foreground text-background px-6 py-3 rounded-full hover:bg-foreground/90 transition-all">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-sm font-semibold bg-foreground text-background px-6 py-3 rounded-full hover:bg-foreground/90 transition-all">
               Get started free <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

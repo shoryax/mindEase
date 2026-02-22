@@ -4,6 +4,7 @@ import { Camera, Upload, Loader2, AlertCircle, Stethoscope, RotateCcw, ShieldAle
 import { Button } from "@/components/ui/button";
 import { useUser } from "../../contexts/UserContext";
 import Header from "../../components/Header";
+import NotLoggedIn from "../../components/NotLoggedIn";
 
 interface MedicineResult {
   name: string;
@@ -118,16 +119,7 @@ export default function AIDoctorPage() {
   }
 
   if (!user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-3xl font-light text-foreground mb-4">Sign in to use AI Doctor</h2>
-          <a href="/signin">
-            <Button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full px-8 py-3">Log In</Button>
-          </a>
-        </div>
-      </div>
-    );
+    return <NotLoggedIn message="Sign in to use AI Doctor." />;
   }
 
   return (

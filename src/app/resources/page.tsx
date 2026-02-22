@@ -136,7 +136,7 @@ export default function ResourcesPage() {
           <div className="mb-16">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-semibold text-foreground">MindEase Tools</h2>
-              <Link href="/signin" className="inline-flex items-center gap-1.5 text-xs font-medium text-teal-600 dark:text-teal-400 hover:text-teal-700 transition-colors">
+              <Link href="/dashboard" className="inline-flex items-center gap-1.5 text-xs font-medium text-teal-600 dark:text-teal-400 hover:text-teal-700 transition-colors">
                 Sign in to use all tools <ArrowRight className="w-3 h-3" />
               </Link>
             </div>
@@ -168,7 +168,7 @@ export default function ResourcesPage() {
           <div className="p-8 rounded-2xl bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30 border border-teal-200/50 dark:border-teal-800/30 text-center">
             <h3 className="font-semibold text-foreground mb-2">All tools. Free to start.</h3>
             <p className="text-sm text-muted-foreground mb-5">Sign in with Google and get access to every MindEase tool instantly.</p>
-            <Link href="/signin" className="inline-flex items-center gap-2 text-sm font-semibold bg-foreground text-background px-6 py-3 rounded-full hover:bg-foreground/90 transition-all">
+            <Link href="/dashboard" className="inline-flex items-center gap-2 text-sm font-semibold bg-foreground text-background px-6 py-3 rounded-full hover:bg-foreground/90 transition-all">
               Get started <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

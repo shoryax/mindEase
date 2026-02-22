@@ -23,10 +23,10 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const displayName = fullName ? fullName.split(' ')[0] : user?.email || "Guest";
 
   useEffect(() => {
-    // Get initial user
+    // Get initial session — getSession() auto-exchanges PKCE codes in the URL
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
+      const { data: { session } } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
       setLoading(false);
     };
 
